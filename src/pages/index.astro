@@ -2,737 +2,233 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead
-			title="Nair Engineering — Vivral, Retro-Futurist Medical Intelligence"
-			description="Vivral is a retro-futuristic, on-device medical intelligence system by Nair Engineering — private, fast, and designed to feel like tomorrow’s clinic."
-		/>
-		<style>
-			:root {
-				--bg-gradient: radial-gradient(circle at top, #3ff0ff 0, #191437 40%, #050313 100%);
-				--accent-pink: #ff6bd5;
-				--accent-cyan: #37f5ff;
-				--accent-yellow: #ffe887;
-				--card-bg: rgba(9, 5, 40, 0.88);
-				--glass-border: rgba(255, 255, 255, 0.2);
-				--text-main: #f7f4ff;
-				--text-muted: #b6b0e3;
-				--orbit-line: rgba(255, 255, 255, 0.1);
-				--shadow-neon: 0 0 35px rgba(55, 245, 255, 0.7);
-				--radius-xl: 1.75rem;
+<head>
+	<BaseHead
+		title="Vivral — Private, Local Medical Intelligence"
+		description="By Nair Engineering — A fully on-device clinical AI system engineered for physicians."
+	/>
+	<style>
+		:root {
+			--bg: #0E1214;
+			--bg-elevated: #161B1E;
+			--bg-card: #1A1F23;
+
+			--accent-mint: #98FFCB;
+			--accent-teal: #6CEACB;
+			--accent-yellow: #FFE8A3;
+
+			--text-primary: #ECF4EE;
+			--text-secondary: #A9B6B0;
+			--text-muted: #7A8480;
+
+			--radius-xl: 32px;
+			--radius-lg: 22px;
+			--radius-md: 14px;
+
+			--shadow-soft: 0 4px 30px rgba(0,0,0,0.3);
+		}
+
+		body {
+			background: var(--bg);
+			color: var(--text-primary);
+			margin: 0;
+			font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+		}
+
+		main {
+			max-width: 1300px;
+			margin: 0 auto;
+			padding: 4rem 1.5rem 6rem;
+		}
+
+		.section {
+			display: grid;
+			grid-template-columns: 1.1fr 1fr;
+			gap: 4rem;
+			align-items: center;
+			padding: 6rem 0;
+		}
+
+		.section.reverse {
+			grid-template-columns: 1fr 1.1fr;
+		}
+
+		@media (max-width: 900px) {
+			.section,
+			.section.reverse {
+				grid-template-columns: 1fr;
 			}
-
-			body {
-				margin: 0;
-				min-height: 100vh;
-				background: var(--bg-gradient);
-				color: var(--text-main);
-				font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
-				overflow-x: hidden;
-			}
-
-			main {
-				max-width: 1120px;
-				margin: 0 auto;
-				padding: 4rem 1.5rem 5rem;
-				position: relative;
-				z-index: 1;
-			}
-
-			.hero {
-				display: grid;
-				grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
-				gap: 3rem;
-				align-items: center;
-				margin-bottom: 4rem;
-			}
-
-			@media (max-width: 880px) {
-				.hero {
-					grid-template-columns: 1fr;
-				}
-			}
-
-			.badge {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.5rem;
-				padding: 0.3rem 0.9rem;
-				border-radius: 999px;
-				border: 1px solid rgba(255, 255, 255, 0.35);
-				background: linear-gradient(
-					135deg,
-					rgba(55, 245, 255, 0.18),
-					rgba(255, 107, 213, 0.18)
-				);
-				font-size: 0.8rem;
-				text-transform: uppercase;
-				letter-spacing: 0.12em;
-				color: var(--text-main);
-				margin-bottom: 1.25rem;
-				backdrop-filter: blur(14px);
-			}
-
-			.badge-dot {
-				width: 8px;
-				height: 8px;
-				border-radius: 999px;
-				background: var(--accent-cyan);
-				box-shadow: 0 0 12px rgba(55, 245, 255, 0.9);
-			}
-
-			.hero-title {
-				font-size: clamp(2.6rem, 4vw, 3.5rem);
-				line-height: 1.05;
-				margin: 0 0 1rem;
-			}
-
-			.hero-title span {
-				background: linear-gradient(120deg, var(--accent-cyan), var(--accent-pink));
-				-webkit-background-clip: text;
-				background-clip: text;
-				color: transparent;
-			}
-
-			.hero-subtitle {
-				font-size: 1.1rem;
-				color: var(--text-muted);
-				max-width: 34rem;
-				margin-bottom: 1.8rem;
-			}
-
-			.hero-cta {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.9rem;
-				align-items: center;
-				margin-bottom: 1.5rem;
-			}
-
-			.btn-primary {
-				border-radius: 999px;
-				border: none;
-				padding: 0.9rem 1.6rem;
-				font-size: 0.98rem;
-				font-weight: 600;
-				cursor: pointer;
-				background: radial-gradient(circle at 0% 0%, #ffe887 0, #ff6bd5 35%, #3ff0ff 100%);
-				color: #140b2e;
-				box-shadow: 0 0 25px rgba(255, 107, 213, 0.7);
-				display: inline-flex;
-				align-items: center;
-				gap: 0.5rem;
-				text-decoration: none;
-			}
-
-			.btn-primary span.arrow {
-				font-size: 1.2rem;
-				transition: transform 160ms ease-out;
-			}
-
-			.btn-primary:hover span.arrow {
-				transform: translateX(3px);
-			}
-
-			.btn-ghost {
-				border-radius: 999px;
-				padding: 0.85rem 1.4rem;
-				border: 1px solid rgba(255, 255, 255, 0.4);
-				background: rgba(8, 4, 31, 0.65);
-				color: var(--text-main);
-				font-size: 0.96rem;
-				text-decoration: none;
-				display: inline-flex;
-				align-items: center;
-				gap: 0.5rem;
-				backdrop-filter: blur(12px);
-			}
-
-			.btn-ghost:hover {
-				border-color: var(--accent-cyan);
-			}
-
-			.hero-footnote {
-				font-size: 0.85rem;
-				color: var(--text-muted);
-			}
-
-			/* Retro-futuristic orb / orbit illustration */
-			.orbit-shell {
-				position: relative;
-				aspect-ratio: 4 / 3;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.orbit-card {
-				position: relative;
-				width: 100%;
-				max-width: 360px;
-				padding: 1.6rem 1.8rem;
-				border-radius: var(--radius-xl);
-				background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.12), transparent 55%),
-					var(--card-bg);
-				border: 1px solid var(--glass-border);
-				box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65), var(--shadow-neon);
-				backdrop-filter: blur(18px);
-			}
-
-			.orbit-label {
-				font-size: 0.8rem;
-				text-transform: uppercase;
-				letter-spacing: 0.14em;
-				color: var(--accent-yellow);
-				margin-bottom: 0.35rem;
-			}
-
-			.orbit-name {
-				font-size: 1.7rem;
-				margin: 0 0 0.5rem;
-			}
-
-			.orbit-pill-row {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.5rem;
-				margin: 0.8rem 0 1.2rem;
-			}
-
-			.orbit-pill {
-				padding: 0.25rem 0.7rem;
-				border-radius: 999px;
-				border: 1px solid rgba(255, 255, 255, 0.4);
-				font-size: 0.75rem;
-				color: var(--text-muted);
-				background: radial-gradient(circle at 0 0, rgba(63, 240, 255, 0.25), transparent 70%);
-			}
-
-			.orbit-metric-row {
-				display: flex;
-				justify-content: space-between;
-				gap: 1.1rem;
-				font-size: 0.75rem;
-				color: var(--text-muted);
-			}
-
-			.orbit-metric strong {
-				display: block;
-				color: var(--accent-cyan);
-				font-size: 1.05rem;
-			}
-
-			.orbit-backdrop {
-				position: absolute;
-				inset: 0;
-				pointer-events: none;
-			}
-
-			.orbit-ring {
-				position: absolute;
-				border-radius: 999px;
-				border: 1px dashed var(--orbit-line);
-				inset: 12%;
-				transform: rotate(-12deg);
-				animation: orbit-spin 24s linear infinite;
-			}
-
-			.orbit-ring:nth-child(2) {
-				inset: 2%;
-				border-style: solid;
-				border-color: rgba(63, 240, 255, 0.25);
-				transform: rotate(18deg);
-				animation-duration: 32s;
-			}
-
-			.orbit-dot {
-				position: absolute;
-				width: 10px;
-				height: 10px;
-				border-radius: 999px;
-				background: var(--accent-pink);
-				box-shadow: 0 0 18px rgba(255, 107, 213, 0.9);
-				top: 8%;
-				right: 18%;
-				animation: orbit-drift 9s ease-in-out infinite alternate;
-			}
-
-			.orbit-dot:nth-child(4) {
-				top: auto;
-				bottom: 6%;
-				left: 12%;
-				background: var(--accent-cyan);
-				box-shadow: 0 0 18px rgba(63, 240, 255, 0.9);
-				animation-duration: 7s;
-			}
-
-			@keyframes orbit-spin {
-				from {
-					transform: rotate(0deg);
-				}
-				to {
-					transform: rotate(360deg);
-				}
-			}
-
-			@keyframes orbit-drift {
-				from {
-					transform: translate3d(0, 0, 0);
-				}
-				to {
-					transform: translate3d(6px, -10px, 0);
-				}
-			}
-
-			.section-label {
-				text-transform: uppercase;
-				letter-spacing: 0.16em;
-				font-size: 0.78rem;
-				color: var(--accent-yellow);
-				margin-bottom: 0.6rem;
-			}
-
-			.section-title {
-				font-size: 1.6rem;
-				margin: 0 0 0.4rem;
-			}
-
-			.section-subtitle {
-				color: var(--text-muted);
-				margin-bottom: 1.6rem;
-				max-width: 40rem;
-			}
-
-			.grid {
-				display: grid;
-				gap: 1.6rem;
-			}
-
-			.grid-3 {
-				grid-template-columns: repeat(3, minmax(0, 1fr));
-			}
-
-			@media (max-width: 900px) {
-				.grid-3 {
-					grid-template-columns: repeat(2, minmax(0, 1fr));
-				}
-			}
-
-			@media (max-width: 640px) {
-				.grid-3 {
-					grid-template-columns: 1fr;
-				}
-			}
-
-			.card {
-				border-radius: var(--radius-xl);
-				padding: 1.4rem 1.6rem;
-				background: linear-gradient(
-						145deg,
-						rgba(255, 232, 135, 0.06),
-						rgba(55, 245, 255, 0.02)
-					),
-					var(--card-bg);
-				border: 1px solid rgba(255, 255, 255, 0.16);
-				box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
-			}
-
-			.card-icon {
-				width: 28px;
-				height: 28px;
-				border-radius: 999px;
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				font-size: 1.1rem;
-				background: radial-gradient(circle at 30% 0, var(--accent-cyan), var(--accent-pink));
-				margin-bottom: 0.7rem;
-				box-shadow: 0 0 18px rgba(63, 240, 255, 0.8);
-			}
-
-			.card h3 {
-				margin: 0 0 0.4rem;
-				font-size: 1.05rem;
-			}
-
-			.card p {
-				margin: 0;
-				font-size: 0.9rem;
-				color: var(--text-muted);
-			}
-
-			.timeline {
-				display: grid;
-				grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
-				gap: 2rem;
-				margin-top: 2rem;
-				align-items: start;
-			}
-
-			@media (max-width: 880px) {
-				.timeline {
-					grid-template-columns: 1fr;
-				}
-			}
-
-			.timeline-stage {
-				display: flex;
-				align-items: flex-start;
-				gap: 0.9rem;
-				margin-bottom: 1rem;
-			}
-
-			.timeline-badge {
-				width: 18px;
-				height: 18px;
-				border-radius: 999px;
-				background: radial-gradient(circle, var(--accent-cyan), var(--accent-pink));
-				box-shadow: 0 0 16px rgba(63, 240, 255, 0.8);
-				margin-top: 0.3rem;
-				flex-shrink: 0;
-			}
-
-			.timeline-stage h3 {
-				margin: 0 0 0.25rem;
-				font-size: 1rem;
-			}
-
-			.timeline-stage p {
-				margin: 0;
-				font-size: 0.9rem;
-				color: var(--text-muted);
-			}
-
-			.founder {
-				margin-top: 3rem;
-				border-radius: var(--radius-xl);
-				padding: 1.6rem 1.8rem;
-				border: 1px dashed rgba(255, 255, 255, 0.3);
-				background: radial-gradient(
-						circle at 0 0,
-						rgba(255, 232, 135, 0.18),
-						transparent 60%
-					),
-					rgba(4, 4, 28, 0.9);
-			}
-
-			.founder h2 {
-				margin-top: 0;
-			}
-
-			.founder p {
-				margin: 0.25rem 0;
-				color: var(--text-muted);
-			}
-
-			.founder span.tag {
-				display: inline-flex;
-				margin-top: 0.6rem;
-				padding: 0.25rem 0.7rem;
-				border-radius: 999px;
-				border: 1px solid rgba(255, 255, 255, 0.45);
-				font-size: 0.78rem;
-				text-transform: uppercase;
-				letter-spacing: 0.13em;
-			}
-
-			.contact-row {
-				margin-top: 1.1rem;
-				font-size: 0.95rem;
-			}
-
-			.contact-row a {
-				color: var(--accent-cyan);
-				text-decoration: none;
-			}
-
-			.contact-row a:hover {
-				text-decoration: underline;
-			}
-
-			/* floating stars */
-			.starfield {
-				position: fixed;
-				inset: 0;
-				pointer-events: none;
-				z-index: 0;
-				opacity: 0.65;
-			}
-
-			.star {
-				position: absolute;
-				width: 2px;
-				height: 2px;
-				border-radius: 999px;
-				background: rgba(255, 255, 255, 0.8);
-				box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
-				animation: twinkle 3.5s ease-in-out infinite alternate;
-			}
-
-			.star:nth-child(2) {
-				top: 18%;
-				left: 70%;
-				animation-duration: 4.2s;
-			}
-			.star:nth-child(3) {
-				top: 64%;
-				left: 12%;
-				animation-duration: 5s;
-			}
-			.star:nth-child(4) {
-				top: 32%;
-				left: 88%;
-				animation-duration: 3.2s;
-			}
-
-			@keyframes twinkle {
-				from {
-					opacity: 0.2;
-					transform: scale(0.8);
-				}
-				to {
-					opacity: 1;
-					transform: scale(1.35);
-				}
-			}
-		</style>
-	</head>
-
-	<body>
-		<div class="starfield">
-			<div class="star" style="top:8%;left:20%;"></div>
-			<div class="star"></div>
-			<div class="star"></div>
-			<div class="star"></div>
-		</div>
-
-		<Header />
-
-		<main>
-			<section class="hero">
-				<div>
-					<div class="badge">
-						<span class="badge-dot"></span>
-						On-device medical intelligence
-					</div>
-
-					<h1 class="hero-title">
-						Meet <span>Vivral</span>, your retro-futurist medical co-pilot.
-					</h1>
-
-					<p class="hero-subtitle">
-						Nair Engineering is building Vivral, an on-device medical intelligence system that feels
-						like it rolled straight out of a 1970s vision of tomorrow — neon glow, optimistic tech,
-						and absolute respect for patient privacy.
-					</p>
-
-					<div class="hero-cta">
-						<a class="btn-primary" href="mailto:akhilesh@nairengineering.com">
-							Request early access
-							<span class="arrow">↗</span>
-						</a>
-						<a class="btn-ghost" href="#vision">
-							✨ Explore the vision
-						</a>
-					</div>
-
-					<p class="hero-footnote">
-						Fully local · No cloud uploads · Designed for clinics, med students, and future surgeons.
-					</p>
-				</div>
-
-				<div class="orbit-shell">
-					<div class="orbit-backdrop">
-						<div class="orbit-ring"></div>
-						<div class="orbit-ring"></div>
-						<div class="orbit-dot"></div>
-						<div class="orbit-dot"></div>
-					</div>
-					<div class="orbit-card">
-						<div class="orbit-label">Vivral Core Console · v0.1</div>
-						<h2 class="orbit-name">Patient Orbit Panel</h2>
-						<p style="font-size:0.86rem;color:var(--text-muted);margin:0.2rem 0 0.7rem;">
-							Local reasoning engine mapping symptoms, vitals, and history into a live diagnostic
-							trajectory.
-						</p>
-
-						<div class="orbit-pill-row">
-							<div class="orbit-pill">On-device LLM</div>
-							<div class="orbit-pill">Structured notes</div>
-							<div class="orbit-pill">Explainable reasoning</div>
-							<div class="orbit-pill">Clinic-ready</div>
-						</div>
-
-						<div class="orbit-metric-row">
-							<div class="orbit-metric">
-								<strong>0 GB</strong>
-								Cloud storage used
-							</div>
-							<div class="orbit-metric">
-								<strong>ms-level</strong>
-								Response latency
-							</div>
-							<div class="orbit-metric">
-								<strong>HIPAA</strong>
-								Privacy-first design
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-
-			<section aria-labelledby="features">
-				<div class="section-label">What Vivral does</div>
-				<h2 id="features" class="section-title">A clinic assistant from the future, running on your device.</h2>
-				<p class="section-subtitle">
-					Vivral is built to sit quietly in the exam room, listen, think, and document — turning chaotic
-					conversation into clean, structured medical reasoning that your attending would actually trust.
+		}
+
+		.heading-xl {
+			font-size: clamp(2.5rem, 5vw, 4.1rem);
+			font-weight: 600;
+			line-height: 1.1;
+			margin: 0 0 1.25rem;
+		}
+
+		.text-lg {
+			font-size: 1.35rem;
+			color: var(--text-secondary);
+			line-height: 1.6;
+			max-width: 45ch;
+		}
+
+		/* Screenshot containers */
+		.phone-frame {
+			width: 100%;
+			max-width: 420px;
+			border-radius: var(--radius-xl);
+			overflow: hidden;
+			box-shadow: var(--shadow-soft);
+			background: var(--bg-elevated);
+			border: 1px solid rgba(255,255,255,0.05);
+		}
+
+		.phone-frame img {
+			display: block;
+			width: 100%;
+			height: auto;
+		}
+
+		/* Mint retro badge */
+		.badge {
+			display: inline-block;
+			padding: 0.4rem 1rem;
+			border-radius: var(--radius-md);
+			background: rgba(152,255,203,0.12);
+			border: 1px solid rgba(152,255,203,0.35);
+			color: var(--accent-mint);
+			font-size: 0.85rem;
+			letter-spacing: 0.06em;
+			margin-bottom: 1.5rem;
+		}
+
+		/* Thin retro circle accent like Framer */
+		.circle-accent {
+			width: 26px;
+			height: 26px;
+			border-radius: 999px;
+			border: 1px solid rgba(255,255,255,0.08);
+			margin-top: 2rem;
+		}
+	</style>
+</head>
+
+<body>
+	<Header />
+
+	<main>
+
+		<!-- ============================= -->
+		<!-- HERO SECTION -->
+		<!-- ============================= -->
+		<section class="section">
+			<div>
+				<div class="badge">On-Device Medical Intelligence</div>
+				<h1 class="heading-xl">Vivral<br />Private. Local. Designed for Physicians.</h1>
+
+				<p class="text-lg">
+					Powered entirely on-device, Vivral helps clinicians diagnose, document, and plan —
+					with zero cloud dependencies and a retro-futuristic interface inspired by your iOS app.
 				</p>
 
-				<div class="grid grid-3">
-					<article class="card">
-						<div class="card-icon">📝</div>
-						<h3>Structured clinical notes</h3>
-						<p>
-							Transforms patient encounters into organized H&amp;P, SOAP, and discharge notes with
-							clear sections, differential, and next-step plans.
-						</p>
-					</article>
+				<div class="circle-accent"></div>
+			</div>
 
-					<article class="card">
-						<div class="card-icon">🧠</div>
-						<h3>Explainable reasoning</h3>
-						<p>
-							No black-box vibes — Vivral surfaces its reasoning chain, so you can interrogate each
-							step like a teaching attending would.
-						</p>
-					</article>
+			<div class="phone-frame">
+				<!-- SCREENSHOT SLOT 1  
+				     Replace example.png with your screenshot:
+				     <img src="/images/yourimage.png" alt="Vivral Screenshot" />
+				-->
+				<img src="/images/screenshot1.png" alt="Vivral Screenshot">
+			</div>
+		</section>
 
-					<article class="card">
-						<div class="card-icon">📱</div>
-						<h3>Fully local, fully private</h3>
-						<p>
-							All processing happens on the device. No PHI leaves the room. Perfect for clinics that
-							can’t—or won’t—send data to the cloud.
-						</p>
-					</article>
+		<!-- ============================= -->
+		<!-- ABOUT SECTION -->
+		<!-- ============================= -->
+		<section class="section reverse">
+			<div class="phone-frame">
+				<!-- SCREENSHOT SLOT 2 -->
+				<img src="/images/screenshot2.png" alt="Patient Passport">
+			</div>
 
-					<article class="card">
-						<div class="card-icon">🛰️</div>
-						<h3>Built for low-resource clinics</h3>
-						<p>
-							Optimized to run on everyday hardware, starting with rural settings where every extra
-							pair of hands (or neurons) matters.
-						</p>
-					</article>
+			<div>
+				<div class="badge">About Vivral</div>
+				<h2 class="heading-xl">Private Intelligence Made for Rural Providers</h2>
 
-					<article class="card">
-						<div class="card-icon">🎛️</div>
-						<h3>Retro-futurist console UI</h3>
-						<p>
-							Think Epcot’s golden age: glowing panels, clean typography, and a calm interface that
-							feels playful without ever feeling gimmicky.
-						</p>
-					</article>
-
-					<article class="card">
-						<div class="card-icon">⚙️</div>
-						<h3>Clinician-centric workflow</h3>
-						<p>
-							Designed around how doctors, students, and residents actually think — not how generic
-							chatbots guess you think.
-						</p>
-					</article>
-				</div>
-			</section>
-
-			<section id="vision" style="margin-top:3.5rem;">
-				<div class="section-label">Roadmap</div>
-				<h2 class="section-title">From bedside notes to a global medical intelligence layer.</h2>
-				<p class="section-subtitle">
-					Vivral starts as a local assistant — but the architecture is built to scale from solo doctors in
-					rural clinics to major academic medical centers.
+				<p class="text-lg">
+					Vivral runs fully on the patient's device, enabling real-time clinical reasoning even
+					in low-resource environments. No PHI ever leaves the phone — perfect for rural medicine.
 				</p>
+			</div>
+		</section>
 
-				<div class="timeline">
-					<div>
-						<div class="timeline-stage">
-							<div class="timeline-badge"></div>
-							<div>
-								<h3>Vivral Core</h3>
-								<p>
-									On-device reasoning, structured notes, and case-level memory. Perfect for
-									individual clinicians and small practices.
-								</p>
-							</div>
-						</div>
+		<!-- ============================= -->
+		<!-- DIAGNOSE SECTION -->
+		<!-- ============================= -->
+		<section class="section">
+			<div>
+				<div class="badge">Diagnosis</div>
+				<h2 class="heading-xl">Diagnose with Confidence.</h2>
 
-						<div class="timeline-stage">
-							<div class="timeline-badge"></div>
-							<div>
-								<h3>Vivral Pro</h3>
-								<p>
-									Multi-user workflows, team dashboards, and integrations with EHRs and telemedicine
-									platforms — still privacy-first.
-								</p>
-							</div>
-						</div>
+				<p class="text-lg">
+					Vivral listens to the clinical encounter and constructs differential diagnoses with the same
+					reasoning you'd expect from a thoughtful attending.
+				</p>
+			</div>
 
-						<div class="timeline-stage">
-							<div class="timeline-badge"></div>
-							<div>
-								<h3>Vivral Surreal</h3>
-								<p>
-									A multi-trillion-parameter research model aimed at advanced diagnostics,
-									complex imaging support, and rare-disease pattern discovery.
-								</p>
-							</div>
-						</div>
-					</div>
+			<div class="phone-frame">
+				<!-- SCREENSHOT SLOT 3 -->
+				<img src="/images/screenshot3.png" alt="Diagnosis View">
+			</div>
+		</section>
 
-					<div>
-						<div class="card">
-							<h3 style="margin-top:0;">Why retro-futurism?</h3>
-							<p style="font-size:0.9rem;color:var(--text-muted);">
-								We grew up on optimistic futures — Epcot’s pavilions, Tomorrowland, pulp scifi book
-								covers. Vivral’s design language borrows that warmth and wonder and injects it into
-								the clinical environment, where interfaces usually feel cold and hostile.
-							</p>
-							<p style="font-size:0.9rem;color:var(--text-muted);margin-top:0.8rem;">
-								The result: a system that feels like a friendly console from the future — one that
-								doctors actually enjoy using at 2 a.m. on call.
-							</p>
-						</div>
-					</div>
-				</div>
-			</section>
+		<!-- ============================= -->
+		<!-- DOCUMENT SECTION -->
+		<!-- ============================= -->
+		<section class="section reverse">
+			<div class="phone-frame">
+				<!-- SCREENSHOT SLOT 4 -->
+				<img src="/images/screenshot4.png" alt="Clinical Note View">
+			</div>
 
-			<section style="margin-top:3.5rem;">
-				<div class="founder">
-					<span class="tag">Founder</span>
-					<h2 style="margin-bottom:0.3rem;">Akhilesh Nair · Nair Engineering</h2>
-					<p>
-						Bioengineering mind, future surgeon, and obsessive about building tools that make excellent
-						clinicians even better — starting with the grind of documentation and cognitive overload.
-					</p>
-					<p>
-						Nair Engineering is the studio where those tools get built: tightly-engineered, privacy-first,
-						and unapologetically futuristic.
-					</p>
+			<div>
+				<div class="badge">Documentation</div>
+				<h2 class="heading-xl">Document in Seconds.</h2>
 
-					<div class="contact-row">
-						📡 For pilots, collaborations, or just to jam on ideas:<br />
-						<a href="mailto:akhilesh@nairengineering.com">akhilesh@nairengineering.com</a>
-					</div>
-				</div>
-			</section>
-		</main>
+				<p class="text-lg">
+					Automatically generated clinical notes — structured, accurate, and formatted for physicians.
+				</p>
+			</div>
+		</section>
 
-		<Footer />
-	</body>
+		<!-- ============================= -->
+		<!-- PLAN SECTION -->
+		<!-- ============================= -->
+		<section class="section">
+			<div>
+				<div class="badge">Care Planning</div>
+				<h2 class="heading-xl">Plan Smarter.</h2>
+
+				<p class="text-lg">
+					Vivral helps keep track of visits, labs, and next-steps — intelligently updating as care evolves.
+				</p>
+			</div>
+
+			<div class="phone-frame">
+				<!-- SCREENSHOT SLOT 5 -->
+				<img src="/images/screenshot5.png" alt="Calendar View">
+			</div>
+		</section>
+
+	</main>
+
+	<Footer />
+</body>
 </html>
