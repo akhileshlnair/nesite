@@ -1,382 +1,377 @@
----
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
----
-
 <!doctype html>
 <html lang="en">
 <head>
-	<BaseHead
-		title="Vivral by Nair Engineering"
-		description="Fully On-Device Medical Intelligence Engineered For Everyone On Earth"
-	/>
-	
-	<style>
-		:root {
-			/* --- PALETTE EXTRACTED FROM SCREENSHOTS --- */
-			--bg-void: #050505;       /* Pure black/void */
-			--bg-panel: #121416;      /* Dark grey panel */
-			--bg-surface: #1C1E21;    /* Slightly lighter surface */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivral | Nair Engineering</title>
+    
+    <style>
+        :root {
+            /* --- RETRO-FUTURIST PALETTE (Extracted from your Image) --- */
+            --void-dark: #0f1110;       /* Deepest organic black */
+            --void-panel: #161816;      /* Slightly lighter panel bg */
+            
+            /* The "City Lights" Accents */
+            --neon-cyan: #70f7ef;       /* The water/glass from the image */
+            --neon-clay: #ff7e5f;       /* The terracotta roofs from the image */
+            --neon-acid: #d4ff5f;       /* A high-contrast safety yellow/green */
 
-			--accent-mint: #86F7C6;   /* The glowing green from the UI */
-			--accent-mint-dim: rgba(134, 247, 198, 0.1);
-			
-			--accent-peach: #FFB388;  /* The send button color */
-			--accent-peach-glow: rgba(255, 179, 136, 0.4);
+            --text-bone: #e3e3dd;       /* Retro computer terminal white */
+            --text-muted: #7a7d7a;      /* Faded technical text */
+            
+            /* --- BRUTALIST GRID VARS --- */
+            --grid-line: rgba(112, 247, 239, 0.15);
+            --glass-panel: rgba(22, 24, 22, 0.7);
+            --border-tech: 1px solid var(--grid-line);
+            
+            --font-display: 'Helvetica Now Display', 'Inter', -apple-system, sans-serif;
+            --font-mono: 'SF Mono', 'Space Mono', 'Courier New', monospace;
+        }
 
-			--text-bright: #FFFFFF;
-			--text-muted: #889096;
-			--text-tech: #5C6369;
+        * { box-sizing: border-box; }
 
-			/* --- SIZING --- */
-			--radius-pill: 999px;
-			--radius-card: 24px;
-			
-			/* --- FX --- */
-			--glow-mint: 0 0 20px rgba(134, 247, 198, 0.25);
-			--glow-peach: 0 0 30px rgba(255, 179, 136, 0.3);
-			--glass-border: 1px solid rgba(255, 255, 255, 0.08);
-			--surface-gradient: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
-		}
+        body {
+            background-color: var(--void-dark);
+            color: var(--text-bone);
+            margin: 0;
+            font-family: var(--font-display);
+            overflow-x: hidden;
+            /* The subtle "film grain" texture overlay */
+            background-image: 
+                linear-gradient(rgba(15, 17, 16, 0.9), rgba(15, 17, 16, 0.9)),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
 
-		body {
-			background-color: var(--bg-void);
-			/* Subtle noise texture for retro feel */
-			background-image: radial-gradient(circle at 50% 0%, #1a2024 0%, var(--bg-void) 60%);
-			color: var(--text-bright);
-			margin: 0;
-			font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
-			overflow-x: hidden;
-		}
+        /* --- GLOBAL LAYOUT GRID --- */
+        .grid-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(112, 247, 239, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(112, 247, 239, 0.03) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
 
-		main {
-			max-width: 1200px;
-			margin: 0 auto;
-			padding: 0 1.5rem;
-			position: relative;
-			z-index: 1;
-		}
+        main {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            border-left: var(--border-tech);
+            border-right: var(--border-tech);
+            background: linear-gradient(90deg, rgba(15,17,16,0.5), transparent 20%, transparent 80%, rgba(15,17,16,0.5));
+            min-height: 100vh;
+        }
 
-		/* Global "Tech" typography adjustments */
-		h1, h2, h3 {
-			letter-spacing: -0.02em;
-		}
-		
-		.mono {
-			font-family: 'SF Mono', 'Menlo', 'Courier New', monospace;
-			font-size: 0.85rem;
-			text-transform: uppercase;
-			letter-spacing: 0.08em;
-		}
+        /* --- TYPOGRAPHY --- */
+        h1 {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 800;
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+            margin: 0;
+            text-transform: uppercase;
+            /* Gradient text effect based on the image's "sunrise" */
+            background: linear-gradient(180deg, var(--text-bone) 0%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-		/* --- COMPONENTS --- */
+        h2 {
+            font-size: 2.5rem;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
 
-		/* The glowing buttons from screenshot 1 */
-		.nav-btn {
-			width: 44px;
-			height: 44px;
-			border-radius: 50%;
-			background: rgba(255,255,255,0.05);
-			border: 1px solid rgba(255,255,255,0.1);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			box-shadow: 0 0 15px rgba(134, 247, 198, 0.1);
-			transition: all 0.3s ease;
-			color: var(--accent-mint);
-		}
-		.nav-btn:hover {
-			box-shadow: var(--glow-mint);
-			border-color: var(--accent-mint);
-		}
+        .mono-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--neon-cyan);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .mono-tag.alert { color: var(--neon-clay); }
 
-		/* The pill warning/badge */
-		.tech-badge {
-			display: inline-flex;
-			align-items: center;
-			padding: 0.5rem 1rem;
-			background: var(--bg-surface);
-			border: var(--glass-border);
-			border-radius: var(--radius-pill);
-			font-size: 0.8rem;
-			color: var(--text-muted);
-			backdrop-filter: blur(10px);
-			margin-bottom: 2rem;
-			box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-		}
-		.tech-badge span {
-			color: var(--accent-mint);
-			margin-right: 8px;
-		}
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 500px;
+        }
 
-		/* --- SECTIONS --- */
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            border-bottom: var(--border-tech);
+        }
+        .brand {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            font-size: 1.2rem;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .brand::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: var(--neon-clay);
+            box-shadow: 0 0 10px var(--neon-clay);
+        }
 
-		.hero-section {
-			min-height: 90vh;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			text-align: center;
-			padding-top: 6rem;
-			position: relative;
-		}
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 8rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            border-bottom: var(--border-tech);
+        }
 
-		/* Background ambient glow */
-		.ambient-glow {
-			position: absolute;
-			top: -10%;
-			left: 50%;
-			transform: translateX(-50%);
-			width: 600px;
-			height: 600px;
-			background: radial-gradient(circle, rgba(134, 247, 198, 0.08) 0%, rgba(0,0,0,0) 70%);
-			pointer-events: none;
-			z-index: -1;
-		}
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-		.hero-title {
-			font-size: clamp(3rem, 6vw, 5rem);
-			font-weight: 700;
-			line-height: 1;
-			margin-bottom: 1.5rem;
-			background: linear-gradient(180deg, #fff 0%, #aab 100%);
-			-webkit-background-clip: text;
-			-webkit-text-fill-color: transparent;
-			text-shadow: 0 0 40px rgba(255,255,255,0.1);
-		}
+        /* The Radial Halo from the image */
+        .sun-halo {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 126, 95, 0.15) 0%, rgba(0,0,0,0) 60%);
+            z-index: -1;
+            filter: blur(40px);
+        }
 
-		.hero-sub {
-			font-size: 1.25rem;
-			color: var(--text-muted);
-			max-width: 600px;
-			line-height: 1.6;
-			margin-bottom: 3rem;
-		}
+        /* --- INPUT ISLAND (Retrofuturist Version) --- */
+        .hud-input-group {
+            margin-top: 3rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            padding: 4px;
+            max-width: 420px;
+        }
+        
+        .hud-input {
+            background: transparent;
+            border: none;
+            color: var(--text-bone);
+            padding: 1rem;
+            flex: 1;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            outline: none;
+        }
+        
+        .hud-btn {
+            background: var(--neon-cyan);
+            color: var(--void-dark);
+            border: none;
+            padding: 0 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .hud-btn:hover {
+            background: var(--text-bone);
+            box-shadow: 0 0 15px var(--text-bone);
+        }
 
-		/* The "Input Island" CTA - inspired by Screenshot 1 bottom bar */
-		.input-island-container {
-			background: rgba(30, 34, 38, 0.6);
-			border: var(--glass-border);
-			border-radius: 32px;
-			padding: 10px;
-			display: flex;
-			align-items: center;
-			width: 100%;
-			max-width: 400px;
-			backdrop-filter: blur(15px);
-			-webkit-backdrop-filter: blur(15px);
-			box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-			position: relative;
-			overflow: hidden;
-		}
+        /* --- SHOWCASE GRID --- */
+        .showcase-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-bottom: var(--border-tech);
+        }
 
-		/* The "Mock" input area */
-		.input-island-text {
-			flex: 1;
-			padding: 0 1.5rem;
-			color: var(--text-tech);
-			font-size: 0.95rem;
-		}
+        .showcase-content {
+            padding: 6rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-		/* The Peach Send Button */
-		.btn-action {
-			width: 48px;
-			height: 48px;
-			border-radius: 20px;
-			background: var(--accent-peach);
-			border: none;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			cursor: pointer;
-			box-shadow: var(--glow-peach);
-			transition: transform 0.2s;
-		}
-		.btn-action:hover {
-			transform: scale(1.05);
-			box-shadow: 0 0 40px var(--accent-peach-glow);
-		}
-		.btn-action svg {
-			fill: #3e2010; /* Dark contrast color for icon inside peach button */
-			width: 20px;
-			height: 20px;
-		}
+        .showcase-visual {
+            border-left: var(--border-tech);
+            padding: 4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, rgba(112, 247, 239, 0.05) 0%, transparent 70%);
+            position: relative;
+            overflow: hidden;
+        }
 
-		/* --- CONTENT GRIDS --- */
-		.feature-grid {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 4rem;
-			align-items: center;
-			padding: 8rem 0;
-		}
+        /* Phone Styling */
+        .device-frame {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 320px;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .device-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: contrast(1.1) drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+        }
 
-		.feature-grid.reverse {
-			direction: rtl; /* Quick hack to flip order, reset text direction inside */
-		}
-		.feature-grid.reverse > * {
-			direction: ltr;
-		}
+        .device-frame:hover {
+            transform: scale(1.02) translateY(-10px);
+        }
 
-		@media (max-width: 900px) {
-			.feature-grid, .feature-grid.reverse {
-				grid-template-columns: 1fr;
-				direction: ltr;
-				gap: 3rem;
-			}
-		}
+        /* --- DATA TABLE (Brutalist style) --- */
+        .spec-table {
+            width: 100%;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+        .spec-val { color: var(--neon-cyan); }
+        .spec-val.secure { color: var(--neon-clay); }
 
-		/* --- CARD STYLING (Inspired by Screenshot 2 "Passport") --- */
-		.data-card {
-			background: var(--bg-panel);
-			border: var(--glass-border);
-			border-radius: var(--radius-card);
-			padding: 2.5rem;
-			position: relative;
-			overflow: hidden;
-		}
+        /* --- FOOTER --- */
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
 
-		/* Top glowing rim effect */
-		.data-card::before {
-			content: '';
-			position: absolute;
-			top: 0; left: 0; right: 0;
-			height: 1px;
-			background: linear-gradient(90deg, transparent, var(--accent-mint), transparent);
-			opacity: 0.5;
-		}
+        /* --- UTILS --- */
+        .text-glow-cyan { text-shadow: 0 0 20px rgba(112, 247, 239, 0.4); }
+        .text-glow-clay { text-shadow: 0 0 20px rgba(255, 126, 95, 0.4); }
 
-		.feature-title {
-			font-size: 2rem;
-			margin: 0 0 1rem;
-		}
-		
-		.feature-desc {
-			color: var(--text-muted);
-			line-height: 1.6;
-			margin-bottom: 2rem;
-		}
-
-		/* Data visualization details */
-		.data-row {
-			display: flex;
-			justify-content: space-between;
-			border-bottom: 1px solid rgba(255,255,255,0.05);
-			padding: 1rem 0;
-			font-family: 'SF Mono', monospace;
-			font-size: 0.9rem;
-		}
-		.data-label { color: var(--text-tech); }
-		.data-value { color: var(--accent-mint); }
-
-		/* Phone Frame Mockup - REMOVED BORDERS AND EFFECTS */
-		.phone-mockup {
-			/* Removed background, border, border-radius, box-shadow, and aspect-ratio */
-			position: relative;
-			max-width: 380px;
-			margin: 0 auto;
-		}
-		.phone-mockup img {
-			width: 100%;
-			height: auto;
-			display: block;
-			/* Removed object-fit and opacity */
-		}
-		
-		/* Removed the reflection overlay pseudo-element */
-
-		.footer-tag {
-			text-align: center;
-			padding: 4rem 0;
-			color: var(--text-tech);
-			font-size: 0.8rem;
-			letter-spacing: 0.2em;
-			text-transform: uppercase;
-			border-top: 1px solid rgba(255,255,255,0.05);
-			margin-top: 4rem;
-		}
-
-	</style>
+        @media (max-width: 900px) {
+            .hero, .showcase-row { grid-template-columns: 1fr; }
+            .showcase-visual { border-left: none; border-top: var(--border-tech); order: -1; }
+            h1 { font-size: 15vw; }
+        }
+    </style>
 </head>
-
 <body>
-	<Header />
 
-	<main>
-		<div class="ambient-glow"></div>
+    <div class="grid-overlay"></div>
 
-		<section class="hero-section">
-			
-			<div class="tech-badge">
-				<span>●</span> VIVRAL
-			</div>
+    <main>
+        <header>
+            <div class="brand">NAIR ENG.</div>
+            <div class="mono-tag" style="margin:0;">SYSTEM: ONLINE</div>
+        </header>
 
-			<h1 class="hero-title">
-				Vivral.<br>
-				<span style="color: var(--accent-mint); -webkit-text-fill-color: var(--accent-mint);"></span>
-			</h1>
+        <section class="hero">
+            <div>
+                <span class="mono-tag">/// PROJECT VIVRAL</span>
+                <h1>Medical<br>Logic<br><span style="color: var(--neon-cyan);" class="text-glow-cyan">Evolved.</span></h1>
+                
+                <div class="hud-input-group">
+                    <input type="email" class="hud-input" placeholder="ENTER ACCESS CREDENTIALS..." />
+                    <button class="hud-btn">INITIATE</button>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="sun-halo"></div>
+                <div style="width: 300px; height: 300px; border: 1px solid var(--neon-cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative;">
+                    <div style="position: absolute; width: 100%; height: 1px; background: var(--neon-cyan);"></div>
+                    <div style="position: absolute; height: 100%; width: 1px; background: var(--neon-cyan);"></div>
+                    <div style="width: 200px; height: 200px; border: 1px solid var(--neon-clay); border-radius: 50%;"></div>
+                </div>
+            </div>
+        </section>
 
-			<p class="hero-sub">
-				On-device Medical Intelligence Engineered For Everyone On Earth.
-				Fast. Safe. Private.
-			</p>
+        <section class="showcase-row">
+            <div class="showcase-visual">
+                <div class="device-frame">
+                    <img src="/IMG_1656-portrait.png" alt="Vivral Interface">
+                </div>
+            </div>
+            <div class="showcase-content">
+                <span class="mono-tag">01 // REASONING ENGINE</span>
+                <h2>The World's First<br>On-Device Medical AI.</h2>
+                <p>
+                    Powered by our state-of-the-art reasoning model. Vivral doesn't just guess; it thinks. 
+                    Processing complex diagnostics with zero latency, entirely on your local hardware.
+                </p>
 
-			<div class="input-island-container">
-				<div class="input-island-text">Join the waitlist...</div>
-				<button class="btn-action">
-					<svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-				</button>
-			</div>
-			
-			<div style="margin-top: 1rem; font-size: 0.75rem; color: var(--text-tech);">
-				NAIR ENGINEERING
-			</div>
-		</section>
+                <div class="spec-table">
+                    <div class="spec-row">
+                        <span>ARCHITECTURE</span>
+                        <span class="spec-val">NEURAL_HYBRID_V1</span>
+                    </div>
+                    <div class="spec-row">
+                        <span>LATENCY</span>
+                        <span class="spec-val">LOCAL_INSTANT</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-		<section class="feature-grid">
-			<div class="phone-mockup">
-				<img src="/IMG_1656-portrait.png" alt="Vivral Home">
-			</div>
-			
-			<div class="data-card">
-				<div class="mono" style="color: var(--accent-mint); margin-bottom: 1rem;">// SYSTEM_CAPABILITY_01</div>
-				<h2 class="feature-title">Diagnostic Reasoning</h2>
-				<p class="feature-desc">
-					Vivral gives you trusted medical answers powered by our advanced Medical Reasoning Engine, ensuring safe, multilayered guidance every time.
-				</p>
-				
-				<div class="data-row">
-					<span class="data-label">LATENCY</span>
-					<span class="data-value">0ms (Local)</span>
-				</div>
-				<div class="data-row">
-					<span class="data-label">PRIVACY</span>
-					<span class="data-value">Complete. (Local)</span>
-				</div>
-		</section>
+        <section class="showcase-row">
+            <div class="showcase-content">
+                <span class="mono-tag alert">02 // PRIVACY PROTOCOL</span>
+                <h2 style="color: var(--neon-clay);" class="text-glow-clay">Patient Passport.</h2>
+                <p>
+                    Your data is yours. The unique Medical Passport stays encrypted in your phone's secure enclave. 
+                    No information from Vivral ever touches the internet.
+                </p>
 
-		<section class="feature-grid reverse">
-			<div class="phone-mockup">
-				<img src="/IMG_1657-left.png" alt="Patient Passport">
-			</div>
+                <div class="spec-table">
+                    <div class="spec-row">
+                        <span>ENCRYPTION</span>
+                        <span class="spec-val secure">MIL_SPEC_256</span>
+                    </div>
+                    <div class="spec-row">
+                        <span>CLOUD UPLOAD</span>
+                        <span class="spec-val secure">DISABLED / NULL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="showcase-visual" style="border-left: var(--border-tech);">
+                <div class="device-frame">
+                    <img src="/IMG_1657-left.png" alt="Patient Passport Interface">
+                </div>
+            </div>
+        </section>
 
-			<div>
-				<div class="mono" style="color: var(--accent-peach); margin-bottom: 1rem;">// SYSTEM_CAPABILITY_02</div>
-				<h2 class="feature-title">NE Patient Passport</h2>
-				<p class="feature-desc">
-					All your essential medical details stay securely on your device. Your Patient Passport never leaves your phone: you control who gets access. 
-				</p>
-			</div>
-		</section>
+        <footer>
+            Nair Engineering Corp &copy; 2025 <br>
+            Building the Future of Medical AI
+        </footer>
 
-		<div class="footer-tag">
-			Nair Engineering • The Future of Medicine
-		</div>
+    </main>
 
-	</main>
-
-	<Footer />
 </body>
 </html>
