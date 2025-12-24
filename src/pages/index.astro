@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nair Engineering | Vivral</title>
+    <title>Nair Engineering</title>
     
     <style>
         :root {
-            /* --- RETRO-FUTURIST PALETTE --- */
-            --void-dark: #0f1110;       
-            --void-panel: #161816;      
+            /* --- RETRO-FUTURIST PALETTE (Extracted from your Image) --- */
+            --void-dark: #0f1110;       /* Deepest organic black */
+            --void-panel: #161816;      /* Slightly lighter panel bg */
             
-            --neon-cyan: #70f7ef;       
-            --neon-clay: #ff7e5f;       
-            --neon-acid: #d4ff5f;       
+            /* The "City Lights" Accents */
+            --neon-cyan: #70f7ef;       /* The water/glass from the image */
+            --neon-clay: #ff7e5f;       /* The terracotta roofs from the image */
+            --neon-acid: #d4ff5f;       /* A high-contrast safety yellow/green */
 
-            --text-bone: #e3e3dd;       
-            --text-muted: #7a7d7a;      
+            --text-bone: #e3e3dd;       /* Retro computer terminal white */
+            --text-muted: #7a7d7a;      /* Faded technical text */
             
+            /* --- BRUTALIST GRID VARS --- */
             --grid-line: rgba(112, 247, 239, 0.15);
+            --glass-panel: rgba(22, 24, 22, 0.7);
             --border-tech: 1px solid var(--grid-line);
             
             --font-display: 'Helvetica Now Display', 'Inter', -apple-system, sans-serif;
@@ -33,10 +36,32 @@
             margin: 0;
             font-family: var(--font-display);
             overflow-x: hidden;
+            /* The subtle "film grain" texture overlay */
             background-image: 
                 linear-gradient(rgba(15, 17, 16, 0.9), rgba(15, 17, 16, 0.9)),
                 url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
         }
+
+        .showcase-visual {
+            flex: 1.3;              /* makes the right column bigger */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 2rem;
+        }
+        
+        .device-frame {
+            width: 480px;           /* ideal width for your layout */
+            max-width: 90%;         /* responsive fallback */
+        }
+        
+        .device-frame img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;    /* optional, matches your screenshot vibe */
+            display: block;
+        }
+
 
         /* --- GLOBAL LAYOUT GRID --- */
         .grid-overlay {
@@ -56,6 +81,7 @@
             z-index: 2;
             max-width: 1400px;
             margin: 0 auto;
+            padding: 0 2rem;
             border-left: var(--border-tech);
             border-right: var(--border-tech);
             background: linear-gradient(90deg, rgba(15,17,16,0.5), transparent 20%, transparent 80%, rgba(15,17,16,0.5));
@@ -64,12 +90,13 @@
 
         /* --- TYPOGRAPHY --- */
         h1 {
-            font-size: clamp(3.5rem, 9vw, 8rem);
+            font-size: clamp(4rem, 10vw, 8rem);
             font-weight: 800;
-            line-height: 0.9;
+            line-height: 0.85;
             letter-spacing: -0.04em;
             margin: 0;
             text-transform: uppercase;
+            /* Gradient text effect based on the image's "sunrise" */
             background: linear-gradient(180deg, var(--text-bone) 0%, var(--text-muted) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -78,14 +105,6 @@
         h2 {
             font-size: 2.5rem;
             letter-spacing: -0.02em;
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-
-        h3 {
-            font-family: var(--font-mono);
-            font-size: 1.2rem;
-            color: var(--text-bone);
             margin-bottom: 1rem;
         }
 
@@ -100,14 +119,12 @@
         }
         
         .mono-tag.alert { color: var(--neon-clay); }
-        .mono-tag.acid { color: var(--neon-acid); }
 
         p {
             font-size: 1.1rem;
             line-height: 1.6;
             color: var(--text-muted);
             max-width: 500px;
-            margin-bottom: 2rem;
         }
 
         /* --- HEADER --- */
@@ -115,7 +132,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem;
+            padding: 2rem 0;
             border-bottom: var(--border-tech);
         }
         .brand {
@@ -136,7 +153,7 @@
 
         /* --- HERO SECTION --- */
         .hero {
-            padding: 6rem 2rem;
+            padding: 8rem 0;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
@@ -151,6 +168,7 @@
             align-items: center;
         }
 
+        /* The Radial Halo from the image */
         .sun-halo {
             position: absolute;
             width: 500px;
@@ -160,9 +178,9 @@
             filter: blur(40px);
         }
 
-        /* --- INPUT ISLAND --- */
+        /* --- INPUT ISLAND (Retrofuturist Version) --- */
         .hud-input-group {
-            margin-top: 2rem;
+            margin-top: 3rem;
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
@@ -200,33 +218,7 @@
             box-shadow: 0 0 15px var(--text-bone);
         }
 
-        /* --- FEATURE GRID (NEW) --- */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            border-bottom: var(--border-tech);
-        }
-
-        .feature-card {
-            padding: 4rem 2rem;
-            border-right: var(--border-tech);
-            transition: background 0.3s ease;
-        }
-
-        .feature-card:last-child { border-right: none; }
-        .feature-card:hover { background: rgba(112, 247, 239, 0.02); }
-
-        .feature-icon {
-            width: 40px; height: 40px;
-            border: 1px solid var(--text-muted);
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--neon-cyan);
-        }
-
-        /* --- SHOWCASE SECTIONS --- */
+        /* --- SHOWCASE GRID --- */
         .showcase-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -251,6 +243,7 @@
             overflow: hidden;
         }
 
+        /* Phone Styling */
         .device-frame {
             position: relative;
             z-index: 10;
@@ -263,19 +256,17 @@
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 20px;
             filter: contrast(1.1) drop-shadow(0 20px 40px rgba(0,0,0,0.6));
-            border: 1px solid #333;
         }
 
         .device-frame:hover {
             transform: scale(1.02) translateY(-10px);
         }
 
-        /* --- DATA TABLE --- */
+        /* --- DATA TABLE (Brutalist style) --- */
         .spec-table {
             width: 100%;
-            margin-top: 1rem;
+            margin-top: 2rem;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
         .spec-row {
@@ -291,31 +282,23 @@
 
         /* --- FOOTER --- */
         footer {
-            padding: 6rem 2rem;
-            border-top: var(--border-tech);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        }
-        .footer-links {
-            display: flex;
-            gap: 2rem;
+            padding: 4rem 0;
+            text-align: center;
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.7rem;
+            color: var(--text-muted);
             text-transform: uppercase;
+            letter-spacing: 0.2em;
         }
-        .footer-links a { color: var(--text-muted); text-decoration: none; }
-        .footer-links a:hover { color: var(--neon-cyan); }
 
         /* --- UTILS --- */
         .text-glow-cyan { text-shadow: 0 0 20px rgba(112, 247, 239, 0.4); }
         .text-glow-clay { text-shadow: 0 0 20px rgba(255, 126, 95, 0.4); }
 
         @media (max-width: 900px) {
-            .hero, .showcase-row, .features-grid, footer { grid-template-columns: 1fr; }
+            .hero, .showcase-row { grid-template-columns: 1fr; }
             .showcase-visual { border-left: none; border-top: var(--border-tech); order: -1; }
-            .feature-card { border-right: none; border-bottom: var(--border-tech); }
-            .hero { padding: 4rem 2rem; }
-            h1 { font-size: 14vw; }
+            h1 { font-size: 15vw; }
         }
     </style>
 </head>
@@ -326,26 +309,13 @@
     <main>
         <header>
             <div class="brand">NAIR ENGINEERING</div>
-            <nav style="display: flex; gap: 20px; font-family: var(--font-mono); font-size: 0.8rem;">
-                <a href="#" style="color: var(--text-bone); text-decoration: none;">MANIFESTO</a>
-                <a href="#" style="color: var(--neon-cyan); text-decoration: none;">BETA ACCESS [ > ]</a>
-            </nav>
         </header>
 
         <section class="hero">
             <div>
-                <span class="mono-tag">VIVRAL APP // VER. 0.9B</span>
+                <span class="mono-tag">VIVRAL</span>
                 <h1>Accessible<br>Medical<br><span style="color: var(--neon-cyan);" class="text-glow-cyan">Intelligence.</span></h1>
-                
-                <p>
-                    Diagnostic reasoning that rivals top clinicians, running entirely on your local device. 
-                    Zero latency. Zero data leakage. 100% Patient Sovereignty.
-                </p>
 
-                <div class="hud-input-group">
-                    <input type="email" class="hud-input" placeholder="ENTER_EMAIL_ADDRESS...">
-                    <button class="hud-btn">JOIN BETA</button>
-                </div>
             </div>
             
             <div class="hero-visual">
@@ -354,62 +324,32 @@
                     <div style="position: absolute; width: 100%; height: 1px; background: var(--neon-cyan);"></div>
                     <div style="position: absolute; height: 100%; width: 1px; background: var(--neon-cyan);"></div>
                     <div style="width: 200px; height: 200px; border: 1px solid var(--neon-clay); border-radius: 50%;"></div>
-                    <div style="position: absolute; width: 10px; height: 10px; background: var(--neon-acid); border-radius: 50%; top: 50px; right: 50px; box-shadow: 0 0 10px var(--neon-acid);"></div>
                 </div>
-            </div>
-        </section>
-
-        <section class="features-grid">
-            <div class="feature-card">
-                <span class="mono-tag acid">CAPABILITY 01</span>
-                <h3>Differential Diagnosis</h3>
-                <p style="font-size: 0.9rem;">
-                    Input symptoms via voice or text. Vivral generates probabilistic differentials using clinical reasoning frameworks, not just pattern matching.
-                </p>
-            </div>
-            <div class="feature-card">
-                <span class="mono-tag acid">CAPABILITY 02</span>
-                <h3>Lab Interpretation</h3>
-                <p style="font-size: 0.9rem;">
-                    Upload photos of bloodwork or metabolic panels. Vivral normalizes data against reference ranges and highlights anomalies instantly.
-                </p>
-            </div>
-            <div class="feature-card">
-                <span class="mono-tag acid">CAPABILITY 03</span>
-                <h3>Clinical Synthesis</h3>
-                <p style="font-size: 0.9rem;">
-                    Vivral acts as an active scribe, synthesizing disjointed patient history into standard SOAP notes for professional review.
-                </p>
             </div>
         </section>
 
         <section class="showcase-row">
             <div class="showcase-visual">
                 <div class="device-frame">
-                    <img src="/IMG_1656-portrait.png" alt="Vivral Chat Interface">
+                    <img src="/IMG_1656-portrait.png" alt="Vivral Interface">
                 </div>
             </div>
             <div class="showcase-content">
                 <span class="mono-tag">01 // REASONING ENGINE</span>
                 <h2>The World's First<br>On-Device Medical AI.</h2>
                 <p>
-                    Powered by our proprietary NE.01R small-language model. Vivral doesn't just guess; it thinks. 
-                    Processing complex diagnostics with zero latency, entirely on your local hardware. 
-                    Designed for remote environments where cloud connectivity is impossible.
+                    Powered by our state-of-the-art reasoning model. Vivral doesn't just guess; it thinks. 
+                    Processing complex diagnostics with zero latency, entirely on your local hardware. Vivral will assist you from anywhere in the universe, no internet required. 
                 </p>
 
                 <div class="spec-table">
                     <div class="spec-row">
-                        <span>MODEL ARCHITECTURE</span>
-                        <span class="spec-val">TRANSFORMER (QUANTIZED)</span>
-                    </div>
-                    <div class="spec-row">
-                        <span>KNOWLEDGE BASE</span>
-                        <span class="spec-val">UMLS / SNOMED-CT</span>
+                        <span>ARCHITECTURE</span>
+                        <span class="spec-val">NE.01R</span>
                     </div>
                     <div class="spec-row">
                         <span>LATENCY</span>
-                        <span class="spec-val">< 12ms</span>
+                        <span class="spec-val"0ms</span>
                     </div>
                 </div>
             </div>
@@ -417,25 +357,21 @@
 
         <section class="showcase-row">
             <div class="showcase-content">
-                <span class="mono-tag alert">02 // PRIVACY ARCHITECTURE</span>
-                <h2 style="color: var(--neon-clay);" class="text-glow-clay">The Patient Passport.</h2>
+                <span class="mono-tag alert">02 // PRIVACY</span>
+                <h2 style="color: var(--neon-clay);" class="text-glow-clay">Patient Passport.</h2>
                 <p>
-                    Your health data is yours. The NE Medical Passport utilizes Apple's Secure Enclave to encrypt biomarkers locally.
-                    Vivral operates in a complete sandbox. No information is ever trained on, and no data ever leaves your phone.
+                    Your data is yours. The NE Medical Passport stays encrypted in your phone's secure enclave. 
+                    No information from Vivral ever touches the internet: completely HIPPA compliant. 
                 </p>
 
                 <div class="spec-table">
                     <div class="spec-row">
-                        <span>ENCRYPTION STANDARD</span>
-                        <span class="spec-val secure">AES-256 (LOCAL)</span>
+                        <span>ENCRYPTION</span>
+                        <span class="spec-val secure">LOCAL</span>
                     </div>
                     <div class="spec-row">
-                        <span>CLOUD UPLOADS</span>
-                        <span class="spec-val secure">BLOCKED</span>
-                    </div>
-                    <div class="spec-row">
-                        <span>COMPLIANCE</span>
-                        <span class="spec-val secure">HIPAA / GDPR READY</span>
+                        <span>CLOUD UPLOAD</span>
+                        <span class="spec-val secure">NONE</span>
                     </div>
                 </div>
             </div>
@@ -447,41 +383,23 @@
         </section>
 
         <section class="showcase-row">
-            <div class="showcase-content" style="border-right: var(--border-tech);">
-                <span class="mono-tag">03 // MISSION</span>
-                <h2 style="color: var(--neon-cyan);">Democratizing<br>Survival.</h2>
+            <div class="showcase-content">
+                <span class="mono-tag alert">03 // MISSION STATEMENT</span>
+                <h2 style="color: var(--neon-cyan);" class="text-glow-clay">Our Mission.</h2>
                 <p>
-                    World-class healthcare is currently a privilege of geography and wealth. Nair Engineering is building systems to make high-fidelity medical guidance accessible to every human on Earth, regardless of internet access or income.
+                    We build advanced medical reasoning systems that deliver high-quality, trustworthy medical guidance to every person on Earth. We believe world-class healthcare should be accessible to everyone: at minimal cost and without barriers.
                 </p>
-                <button class="hud-btn" style="margin-top: 2rem; width: fit-content;">READ THE WHITEPAPER</button>
             </div>
         
-            <div class="showcase-visual" style="border-left: none;">
+            <div class="showcase-visual" style="border-left: var(--border-tech);">
                 <div class="device-frame">
-                    <img src="/IMG_1659.jpeg" alt="Medical Analysis View">
+                    <img src="/IMG_1659.jpeg" alt="Patient Passport Interface">
                 </div>
             </div>
         </section>
 
-        <footer>
-            <div style="display: flex; flex-direction: column; justify-content: space-between;">
-                <div class="brand">NAIR ENGINEERING</div>
-                <p style="font-size: 0.8rem; margin-top: 1rem; color: #555;">
-                    &copy; 2025 Nair Engineering LLC.<br>
-                    Glen Ridge, NJ / Gainesville, FL
-                </p>
-            </div>
-            <div style="display: flex; align-items: flex-end; justify-content: flex-end;">
-                <nav class="footer-links">
-                    <a href="#">Privacy</a>
-                    <a href="#">Terms</a>
-                    <a href="#">Twitter</a>
-                    <a href="#">Contact</a>
-                </nav>
-            </div>
-        </footer>
 
     </main>
 
 </body>
-</html>
+</html>  
