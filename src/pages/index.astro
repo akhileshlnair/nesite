@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NAIR // VIVRAL</title>
-    
+    <title>Nair Engineering</title>
+
+    <link rel="icon" type="image/png" href="NELOGO.png">
+    <link rel="apple-touch-icon" href="NELOGO.png">
+
     <style>
         /* --- PALETTE: Warm Humanist Futurism --- */
         :root {
@@ -63,11 +66,6 @@
             transition: opacity 0.5s ease;
         }
         
-        header.fade-out {
-            opacity: 0;
-            pointer-events: none;
-        }
-        
         .brand {
             font-family: var(--font-display);
             font-weight: 700;
@@ -77,15 +75,6 @@
             font-size: 0.9rem;
         }
         
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--mint);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--mint);
-            animation: pulse 2s infinite;
-        }
-
         /* 2. Glass Cards */
         .glass-card {
             background: var(--glass-bg);
@@ -128,50 +117,6 @@
             background: radial-gradient(circle at center, #1c1426 0%, #000 70%);
             overflow: hidden;
             z-index: 10;
-        }
-
-        /* Starfield - True 3D Warp */
-        .starfield {
-            position: fixed; /* Takes over entire screen */
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 1.5s ease;
-            z-index: 9999; /* On top of everything */
-            background: black; /* Deep space */
-            
-            /* 3D Engine */
-            perspective: 800px;
-            transform-style: preserve-3d;
-            overflow: hidden;
-        }
-        
-        .starfield.active {
-            opacity: 1;
-        }
-        
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            opacity: 0;
-            /* Box shadow adds a tiny glow without increasing physical size */
-            box-shadow: 0 0 2px rgba(255,255,255,0.8);
-            animation: warp-speed 3s infinite linear;
-        }
-
-        @keyframes warp-speed {
-            0% {
-                transform: translate3d(0, 0, -800px);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            100% {
-                transform: translate3d(0, 0, 800px);
-                opacity: 0;
-            }
         }
 
         .phase-container {
@@ -308,7 +253,6 @@
 </head>
 <body>
 
-    <!-- 1. FIXED HEADER -->
     <header id="main-header">
         <div class="brand">NAIR ENGINEERING</div>
         <div style="display: flex; align-items: center; gap: 10px;">
@@ -317,22 +261,17 @@
 
     <main>
 
-        <!-- 2. CINEMATIC INTRO (The Swift Logic) -->
         <section class="cinematic-wrapper" id="intro-sequence">
-            <div class="starfield" id="starfield"></div>
-
-            <!-- Phase 1: Future -->
+            
             <div class="phase-container" id="phase-1">
                 <div class="text-tracking-lg">THE FUTURE</div>
                 <div class="text-hero-lg">OF MEDICINE</div>
             </div>
 
-            <!-- Phase 2: Powered By -->
             <div class="phase-container" id="phase-2">
                 <div class="text-tracking-lg">POWERED BY</div>
             </div>
 
-            <!-- Phase 3: Hologram 1 (Swift) -->
             <div class="phase-container" id="phase-3">
                 <div style="display: flex; align-items: baseline; justify-content: center; gap: 20px;">
                     <span class="hologram-text" data-text="VIVRAL">VIVRAL</span>
@@ -340,7 +279,6 @@
                 </div>
             </div>
 
-            <!-- Phase 4: Hologram 2 (Pro) -->
             <div class="phase-container" id="phase-4">
                 <div style="display: flex; align-items: baseline; justify-content: center; gap: 20px;">
                     <span class="hologram-text" style="color: var(--coral-deep); text-shadow: 0 0 15px var(--coral-deep);" data-text="VIVRAL">VIVRAL</span>
@@ -348,7 +286,6 @@
                 </div>
             </div>
 
-            <!-- Phase 5: Surreal Reveal (Final Landing) -->
             <div class="phase-container" id="phase-5">
                 <div class="text-tracking-lg" style="letter-spacing: 1em;">VIVRAL</div>
                 <div class="surreal-gradient">SURREAL</div>
@@ -360,7 +297,6 @@
             </div>
         </section>
 
-        <!-- 3. PRODUCT HERO -->
         <section class="content-section">
             <div class="grid-2">
                 <div>
@@ -376,7 +312,6 @@
             </div>
         </section>
 
-        <!-- 4. REASONING & SPECS -->
         <section class="content-section">
             <div class="glass-card">
                 <div class="grid-2">
@@ -396,7 +331,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Abstract Visualization -->
                     <div style="height: 300px; background: radial-gradient(circle, rgba(255, 126, 95, 0.1) 0%, transparent 70%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
                         <div style="width: 200px; height: 200px; border: 1px solid var(--coral); border-radius: 50%; animation: pulse 3s infinite;"></div>
                     </div>
@@ -404,7 +338,6 @@
             </div>
         </section>
 
-        <!-- 5. PRIVACY -->
         <section class="content-section">
             <div class="grid-2">
                 <div class="img-container" style="order: 2;">
@@ -420,7 +353,6 @@
             </div>
         </section>
 
-        <!-- 6. MISSION -->
         <section class="mission-wrapper">
             <h2 class="gradient-text" style="font-size: 3rem; margin-bottom: 24px;">The Mission</h2>
             <p style="font-size: 1.5rem; color: rgba(255,255,255,0.9); font-weight: 300; line-height: 1.6;">
@@ -439,33 +371,6 @@
         async function runCinematicIntro() {
             const wait = (ms) => new Promise(r => setTimeout(r, ms));
             const phases = [1, 2, 3, 4, 5].map(i => document.getElementById(`phase-${i}`));
-            const starfield = document.getElementById('starfield');
-            const header = document.getElementById('main-header');
-
-            // 0. GENERATE STARS (Refined for realism)
-            // Smaller, sharper, more distant feel.
-            starfield.innerHTML = '';
-            for(let i=0; i<600; i++) {
-                const s = document.createElement('div');
-                s.className = 'star';
-                // Position across full viewport
-                s.style.left = Math.random() * 100 + 'vw'; 
-                s.style.top = Math.random() * 100 + 'vh';
-                
-                // Much smaller size for realism (0.5px to 2px)
-                const size = Math.random() * 1.5 + 0.5;
-                s.style.width = size + 'px';
-                s.style.height = size + 'px';
-                
-                // Random opacity for twinkling depth
-                s.style.opacity = Math.random() * 0.7 + 0.3;
-                
-                // Randomize animation delays and speed
-                s.style.animationDelay = Math.random() * 2 + 's';
-                s.style.animationDuration = (Math.random() * 2 + 0.8) + 's'; 
-                
-                starfield.appendChild(s);
-            }
 
             // --- SEQUENCE START ---
 
@@ -491,24 +396,9 @@
             phases[3].classList.add('active');
             await wait(2500);
             phases[3].classList.remove('active');
+            await wait(800); // Slight pause before final reveal
 
-            // 5. BRIDGE (Stars Takeover - "Entire Screen")
-            // Fade out header temporarily for immersion
-            header.classList.add('fade-out');
-            
-            // Activate Full Screen Stars
-            starfield.classList.add('active');
-            
-            // Wait for warp speed to register
-            await wait(2500); 
-            
-            // Fade out stars
-            starfield.classList.remove('active');
-            header.classList.remove('fade-out');
-            
-            await wait(800);
-
-            // 6. SURREAL REVEAL
+            // 5. SURREAL REVEAL
             phases[4].classList.add('active');
         }
 
