@@ -74,6 +74,29 @@
             text-transform: uppercase;
             font-size: 0.9rem;
         }
+
+        /* Navigation Button Style (NEW) */
+        .nav-btn {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            padding: 10px 24px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--coral);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
         
         /* 2. Glass Cards */
         .glass-card {
@@ -256,6 +279,7 @@
     <header id="main-header">
         <div class="brand">NAIR ENGINEERING</div>
         <div style="display: flex; align-items: center; gap: 10px;">
+            <a href="pricing.html" class="nav-btn">PRICING</a>
         </div>
     </header>
 
