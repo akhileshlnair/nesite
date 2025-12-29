@@ -75,6 +75,28 @@
             font-size: 0.9rem;
         }
 
+        /* Nav Group styling */
+        .nav-group {
+            display: flex;
+            align-items: center;
+            gap: 24px; /* Space between Research and Pricing */
+        }
+
+        /* Less prominent text link for Research */
+        .nav-text {
+            text-decoration: none;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-text:hover {
+            color: #fff;
+        }
+
         /* Navigation Button Style */
         .nav-btn {
             text-decoration: none;
@@ -278,8 +300,9 @@
 
     <header id="main-header">
         <div class="brand">NAIR ENGINEERING</div>
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <!-- Updated to point to the pricing/ folder -->
+        <!-- UPDATED NAV GROUP -->
+        <div class="nav-group">
+            <a href="research/" class="nav-text">RESEARCH</a>
             <a href="pricing/" class="nav-btn">PRICING</a>
         </div>
     </header>
