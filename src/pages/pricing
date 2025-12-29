@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Nair Engineering</title>
+
+    <link rel="icon" type="image/png" href="NELOGO.png">
+    <link rel="apple-touch-icon" href="NELOGO.png">
+
+    <style>
+        /* --- PALETTE & BASE (Inherited from Index) --- */
+        :root {
+            --bg-deep: #050508;
+            --coral: #FFBFA8;
+            --coral-deep: #FF7E5F;
+            --mint: #C9FFE8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --curve-xl: 40px;
+            --curve-md: 24px;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-display: "Futura", "Helvetica Neue", sans-serif;
+            --ease-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: #ffffff;
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            /* Subtle texture gradient for pricing page */
+            background-image: radial-gradient(circle at 50% 0%, #1c1426 0%, #050508 60%);
+            min-height: 100vh;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            padding: 16px 32px;
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--coral);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            padding: 10px 24px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* --- PRICING LAYOUT --- */
+        .page-wrapper {
+            padding-top: 140px;
+            padding-bottom: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeUp 1s var(--ease-smooth) forwards;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            background: linear-gradient(135deg, #fff 0%, var(--coral) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.6);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* --- CARDS --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .pricing-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--curve-xl);
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            transition: transform 0.4s var(--ease-smooth), border-color 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0; /* For scroll reveal */
+            transform: translateY(30px);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Highlight Logic */
+        .pricing-card.highlight {
+            border-color: var(--coral-deep);
+            background: linear-gradient(180deg, rgba(255, 126, 95, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+        }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--coral-deep);
+            color: #000;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 6px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .plan-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .price-container {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .currency { font-size: 1.5rem; vertical-align: top; margin-right: 4px; color: var(--coral); }
+        .price { font-size: 3.5rem; font-weight: 700; color: #fff; line-height: 1; }
+        .period { color: rgba(255,255,255,0.4); font-size: 1rem; margin-left: 8px; }
+        
+        .discount-text {
+            color: var(--mint);
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: 8px;
+            display: block;
+        }
+
+        .divider {
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        /* --- FEATURES --- */
+        .features-list {
+            list-style: none;
+            margin-bottom: 40px;
+            flex-grow: 1;
+        }
+
+        .features-list li {
+            margin-bottom: 16px;
+            color: rgba(255,255,255,0.7);
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .icon-check {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            color: var(--coral);
+            flex-shrink: 0;
+        }
+
+        /* --- ACTION & NOTES --- */
+        .cta-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--coral-deep) 100%);
+            color: #000;
+            box-shadow: 0 10px 30px rgba(255, 126, 95, 0.3);
+        }
+        
+        .cta-primary:hover { transform: scale(1.02); box-shadow: 0 15px 40px rgba(255, 126, 95, 0.5); }
+
+        .cta-ghost {
+            background: transparent;
+            border: 1px solid var(--coral);
+            color: var(--coral);
+        }
+
+        .cta-ghost:hover { background: rgba(255, 126, 95, 0.1); }
+
+        .validation-note {
+            margin-top: 20px;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* --- UTILS --- */
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <a href="index.html" class="brand">NAIR ENGINEERING</a>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <a href="index.html" class="nav-btn">HOME</a>
+        </div>
+    </header>
+
+    <div class="page-wrapper">
+        
+        <div class="page-header">
+            <div style="font-family: var(--font-display); letter-spacing: 3px; font-size: 0.9rem; color: var(--coral); margin-bottom: 10px;">VIVRAL INTELLIGENCE</div>
+            <h1>Choose Your Engine.</h1>
+            <p class="subtitle">
+                Deploy supreme medical intelligence to your pocket. All data remains local. Select the power tier that fits your workflow.
+            </p>
+        </div>
+
+        <div class="pricing-grid">
+
+            <!-- 1. STUDENT PLAN -->
+            <div class="pricing-card" style="transition-delay: 0.1s;">
+                <div class="plan-name" style="color: var(--mint);">Student</div>
+                <div class="price-container">
+                    <span class="currency">$</span>
+                    <span class="price">0</span>
+                    <span class="period">/ limited time</span>
+                </div>
+                
+                <div class="divider"></div>
+
+                <ul class="features-list">
+                    <li>
+                        <svg class="icon-check" style="color: var(--mint);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <strong>University of Florida Exclusive</strong>
+                    </li>
+                    <li>
+                        <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        All functionalities of Pro Subscription
+                    </li>
+                    <li>
+                        <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Local Processing
+                    </li>
+                    <li>
+                        <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Valid UF ID Required
+                    </li>
+                </ul>
+
+                <button class="cta-btn cta-ghost" style="border-color: var(--mint); color: var(--mint);">Verify ID</button>
+                <div class="validation-note">
+                    Requires .edu email verification. Access is valid for one semester at a time. At Vivral V3 release, all new students will pay $5/month.
+                </div>
+            </div>
+
+            <!-- 2. PLUS MONTHLY -->
+            <div class="pricing-card" style="transition-delay: 0.2s;">
+                <div class="plan-name">Plus Monthly</div>
+                <div class="price-container">
+                    <span class="currency">$</span>
+                    <span class="price">29.99</span>
+                    <span class="period">/ mo</span>
+                </div>
+                
+                <div class="divider"></div>
+
+                <ul class="features-list">
+                    <li>
+                        <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Access to Advanced Vivral Models
+                    </li>
+                    <li>
+                        <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Private Patient Passport
+                    </li>
+                    <li>
+                        <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Unlimited Questions
+                    </li>
+                    <li>
+                        <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Multi-model Cross Checking
+                    </li>
+                </ul>
+
+                <button class="cta-btn cta-ghost">Select Monthly</button>
+                <div class="validation-note">
+                    <strong>Validation Requirement:</strong> Device must connect to the internet once every 30 days to validate subscription token. Subscription auto-cancels if validation fails.
+                </div>
+            </div>
+
+            <!-- 3. PLUS YEARLY -->
+            <div class="pricing-card highlight" style="transition-delay: 0.3s;">
+                <div class="badge">Best Value</div>
+                <div class="plan-name" style="color: var(--coral-deep);">Plus Yearly</div>
+                <div class="price-container" style="flex-wrap: wrap;">
+                    <span class="currency">$</span>
+                    <span class="price">19.99</span>
+                    <span class="period">/ mo</span>
+                    <div style="width: 100%; margin-top: 5px;">
+                        <span class="discount-text">SAVE 33%</span>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+
+                <ul class="features-list">
+                    <li>
+                        <svg class="icon-check" style="color: var(--coral-deep);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Access to Advanced Vivral Models
+                    </li>
+                    <li>
+                        <svg class="icon-check" style="color: var(--coral-deep);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Private Patient Passport
+                    </li>
+                    <li>
+                        <svg class="icon-check" style="color: var(--coral-deep);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Unlimited Questions
+                    </li>
+                    <li>
+                        <svg class="icon-check" style="color: var(--coral-deep);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Multi-model Cross Checking
+                    </li>
+                </ul>
+
+                <button class="cta-btn cta-primary">Select Yearly</button>
+                <div class="validation-note" style="color: rgba(255, 126, 95, 0.6);">
+                    <strong>Seamless Validation:</strong> Device only requires internet connection once per year (365 days) to validate subscription token. Billed annually.
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Simple Scroll Reveal Observer matching the main page
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.pricing-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
