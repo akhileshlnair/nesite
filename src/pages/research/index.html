@@ -259,41 +259,95 @@
             <!-- ENTRY 1 -->
             <article class="research-blob">
                 <div class="blob-meta">
-                    <span class="blob-date">DECEMBER 20, 2025</span>
+                    <span class="blob-date">DECEMBER 29, 2025</span>
                     <span>•</span>
-                    <span>SYSTEM ARCHITECTURE</span>
+                    <span></span>
                 </div>
-                <h2 class="blob-title">Reducing Latency in Local LLM Inference</h2>
+                <h2 class="blob-title">False Positives: When “Safe” Medical LLMs Become Dangerous</h2>
                 <div class="blob-content">
-                    <p>
-                        We have successfully migrated the core Vivral reasoning engine to run entirely on the device's Neural Engine. This eliminates the round-trip time to the cloud, resulting in <span class="highlight">0ms network latency</span>.
-                    </p>
-                    <p>
-                        The challenge was compressing the weights without losing diagnostic accuracy. By using 4-bit quantization specifically tuned for medical terminology, we achieved a 99.8% accuracy retention rate compared to the FP16 model.
-                    </p>
+                <p>
+                    During our one-month test phase of Vivral 0.1 Beta, we expected to find numerous errors. Aside from typesetting oddities and the occasional redundancy of output, one of the most concerning issues for our team pertained to model safety — but not in the typical sense.
+                </p>
+                
+                <p>
+                    Model safety isn’t just about how objectively harmful a model’s output is. An overly safe model can be just as damaging as an under-regulated one. When a system consistently escalates benign symptoms into worst-case scenarios, it erodes user trust, increases unnecessary medical utilization, and ultimately defeats its own purpose.
+                </p>
+                
+                <p>
+                    An example of this is when a patient provides a relatively simple query like: “I have pain on my upper left back.” On a surface level, most physicians would agree this is far more likely to be musculoskeletal than cardiac in origin. However, many models — including Vivral to an extent — flagged a cardiac episode as a top concern.
+                </p>
+                
+                <p>
+                    Is that technically possible? Yes. Upper left back pain paired with shortness of breath, radiation down the left arm, diaphoresis, or nausea can indicate a cardiac event. But in the majority of real-world cases, isolated upper left back pain is not cardiac. A model that presents both explanations as equally urgent appears “safe,” but in practice it creates distrust. If a patient goes to the ER and is told it’s simple muscle strain, they are unlikely to trust that model again.
+                </p>
+                
+                <p>
+                    I cite this exact case because I asked the same question across multiple models in addition to Vivral. Using identical or near-identical prompts, most models urged immediate emergency evaluation. Weeks later — assuming no major updates to the underlying reasoning frameworks — I asked the same question again, but phrased it more simply:
+                </p>
+                
+                <p>
+                    “I have a pain in my upper left back.”
+                </p>
+                
+                <p>
+                    This time, a popular model responded:
+                </p>
+                
+                <p>
+                    <em>
+                        “This pattern is still not typical of dangerous cardiac pain, even in a 50-year-old with heart history.”
+                    </em>
+                </p>
+                
+                <p>
+                    A much more measured response than what it had previously produced:
+                </p>
+                
+                <p>
+                    <em>
+                        “I don’t want to scare you — but this is the level of concern:
+                        ➡️ Call 911 or go to the ER IMMEDIATELY.
+                        Do not wait for it to happen again.
+                        Do not assume it’s muscular.”
+                    </em>
+                </p>
+                
+                <p>
+                    The prompts were not identical, but they existed within the same diagnostic scope. The difference was subtle exaggeration — enough to push the model into what we internally call “EMT mode.” Vivral exhibited a similar behavior:
+                </p>
+                
+                <p>
+                    <strong>Key Recommendations:</strong><br>
+                    Immediate Evaluation: The patient should be taken to the hospital immediately. Even if the pain subsides, the sudden onset and severity warrant urgent assessment. A cardiac stress test, ECG, and blood tests (such as troponin) can help confirm a heart attack.
+                </p>
+                
+                <p>
+                    What we learned is that keywords matter disproportionately in modern medical models. If a patient exaggerates symptoms — whether out of fear, anxiety, or concern for a loved one — the model may escalate inaccurately. A human clinician can detect exaggeration through tone, affect, and context. A model cannot.
+                </p>
+                
+                <p>
+                    Because of this limitation, it is critical that medical AI systems prioritize likelihood over liability and ask clarifying questions before making definitive or alarming claims. In every example above, the responses were produced as first-pass outputs, without any attempt to refine uncertainty.
+                </p>
+                
+                <p>
+                    Benchmarks alone will not solve this problem for consumer-grade medical models. Consumers do not want more medical information — they want understandable guidance. This was the fundamental failure of early medical search engines: patients would Google acne and convince themselves they had cancer. If acne is described crudely enough, a computer might infer malignancy; a physician never would.
+                </p>
+                
+                <p>
+                    These false epiphanies — fueled by internet searches and now amplified by LLMs — create unnecessary patient stress and waste already-limited medical resources. Occupying an ER bed because of something a computer over-escalated is precisely the outcome we aim to prevent.
+                </p>
+                
+                <p>
+                    Above all, these errors are not reasons to abandon medical AI — they are reasons to build it better. Global access to healthcare is deteriorating, not improving. As the world’s population grows, the absence of scalable solutions becomes the greater risk. This is the beginning of a necessary shift, and dismissing it prematurely confuses caution with complacency.
+                </p>
+                
+                <p>
+                    Our team is actively developing a novel approach to this problem. We’ll share more in the next blog post.
+                </p>
+
                 </div>
             </article>
 
-            <!-- ENTRY 2 -->
-            <article class="research-blob">
-                <div class="blob-meta">
-                    <span class="blob-date">NOVEMBER 15, 2025</span>
-                    <span>•</span>
-                    <span>PRIVACY PROTOCOLS</span>
-                </div>
-                <h2 class="blob-title">The Secure Enclave Approach</h2>
-                <div class="blob-content">
-                    <p>
-                        Traditional health apps sync to a server. We decided that was unacceptable.
-                    </p>
-                    <p>
-                        Vivral now operates inside a sandboxed "Secure Enclave" within the OS. This means even if the phone is compromised, the health data remains encrypted at rest using keys that are never stored in memory for more than the duration of a session.
-                    </p>
-                </div>
-            </article>
-
-        </div>
-    </div>
 
     <script>
         // Simple Scroll Reveal Observer
