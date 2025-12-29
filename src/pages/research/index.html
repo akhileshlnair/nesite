@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Insight - Nair Engineering</title>
+
+    <!-- Path adjusted for folder structure (../) -->
+    <link rel="icon" type="image/png" href="../NELOGO.png">
+    <link rel="apple-touch-icon" href="../NELOGO.png">
+
+    <style>
+        /* --- PALETTE & BASE (Inherited) --- */
+        :root {
+            --bg-deep: #050508;
+            --coral: #FFBFA8;
+            --coral-deep: #FF7E5F;
+            --mint: #C9FFE8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --curve-xl: 40px;
+            --curve-md: 24px;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-display: "Futura", "Helvetica Neue", sans-serif;
+            --ease-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: #ffffff;
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            /* Subtle academic texture */
+            background-image: radial-gradient(circle at 50% 0%, #1a1a2e 0%, #050508 60%);
+            min-height: 100vh;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            padding: 16px 32px;
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--coral);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .nav-group {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-text {
+            text-decoration: none;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-text.active {
+            color: #fff;
+            border-bottom: 1px solid var(--coral);
+            padding-bottom: 2px;
+        }
+
+        .nav-text:hover { color: #fff; }
+
+        .nav-btn {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            padding: 10px 24px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--coral);
+        }
+
+        /* --- RESEARCH LAYOUT --- */
+        .page-wrapper {
+            padding-top: 140px;
+            padding-bottom: 80px;
+            max-width: 900px; /* Reading width */
+            margin: 0 auto;
+            width: 90%;
+        }
+
+        .page-header {
+            margin-bottom: 80px;
+            opacity: 0;
+            animation: fadeUp 1s var(--ease-smooth) forwards;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            background: linear-gradient(135deg, #fff 0%, var(--mint) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 700px;
+            line-height: 1.7;
+            border-left: 2px solid var(--coral);
+            padding-left: 20px;
+        }
+
+        /* --- BLOG BLOB (Entry) --- */
+        .blog-stream {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .research-blob {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--curve-xl);
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.4s var(--ease-smooth), border-color 0.4s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .research-blob:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255,255,255,0.04);
+        }
+
+        .blob-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            font-family: var(--font-display);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .blob-date {
+            color: var(--coral);
+        }
+
+        .blob-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .blob-content {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .blob-content p {
+            margin-bottom: 16px;
+        }
+
+        /* Utility for developer to highlight text */
+        .highlight { color: var(--mint); font-weight: 600; }
+
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <a href="../" class="brand">NAIR ENGINEERING</a>
+        <div class="nav-group">
+            <a href="../" class="nav-text">HOME</a>
+            <a href="#" class="nav-text active">RESEARCH</a>
+            <a href="../pricing/" class="nav-btn">PRICING</a>
+        </div>
+    </header>
+
+    <div class="page-wrapper">
+        
+        <div class="page-header">
+            <h1>Research Insight.</h1>
+            <p class="subtitle">
+                We publish unique medical engineering findings we come across in our lab. 
+                Our goal is to document the intersection of biological reality and computational speed.
+            </p>
+        </div>
+
+        <div class="blog-stream">
+
+            <!-- ================= ENTRY TEMPLATE (COPY BELOW) ================= -->
+            <!-- 
+            <article class="research-blob">
+                <div class="blob-meta">
+                    <span class="blob-date">DECEMBER 29, 2025</span>
+                    <span>•</span>
+                    <span>ENGINEERING LOG</span>
+                </div>
+                <h2 class="blob-title">Title of your new finding goes here</h2>
+                <div class="blob-content">
+                    <p>
+                        Write your first paragraph here. You can just type normally.
+                    </p>
+                    <p>
+                        Write your second paragraph here.
+                    </p>
+                </div>
+            </article> 
+            -->
+            <!-- ================= END TEMPLATE ================= -->
+
+
+            <!-- ENTRY 1 -->
+            <article class="research-blob">
+                <div class="blob-meta">
+                    <span class="blob-date">DECEMBER 20, 2025</span>
+                    <span>•</span>
+                    <span>SYSTEM ARCHITECTURE</span>
+                </div>
+                <h2 class="blob-title">Reducing Latency in Local LLM Inference</h2>
+                <div class="blob-content">
+                    <p>
+                        We have successfully migrated the core Vivral reasoning engine to run entirely on the device's Neural Engine. This eliminates the round-trip time to the cloud, resulting in <span class="highlight">0ms network latency</span>.
+                    </p>
+                    <p>
+                        The challenge was compressing the weights without losing diagnostic accuracy. By using 4-bit quantization specifically tuned for medical terminology, we achieved a 99.8% accuracy retention rate compared to the FP16 model.
+                    </p>
+                </div>
+            </article>
+
+            <!-- ENTRY 2 -->
+            <article class="research-blob">
+                <div class="blob-meta">
+                    <span class="blob-date">NOVEMBER 15, 2025</span>
+                    <span>•</span>
+                    <span>PRIVACY PROTOCOLS</span>
+                </div>
+                <h2 class="blob-title">The Secure Enclave Approach</h2>
+                <div class="blob-content">
+                    <p>
+                        Traditional health apps sync to a server. We decided that was unacceptable.
+                    </p>
+                    <p>
+                        Vivral now operates inside a sandboxed "Secure Enclave" within the OS. This means even if the phone is compromised, the health data remains encrypted at rest using keys that are never stored in memory for more than the duration of a session.
+                    </p>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+    <script>
+        // Simple Scroll Reveal Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.research-blob').forEach(blob => {
+            observer.observe(blob);
+        });
+    </script>
+</body>
+</html>
