@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing - Nair Engineering</title>
 
-    <!-- Adjust icon paths to go up one level -->
     <link rel="icon" type="image/png" href="../NELOGO.png">
     <link rel="apple-touch-icon" href="../NELOGO.png">
 
@@ -155,6 +154,12 @@
             border-color: var(--coral-deep);
             background: linear-gradient(180deg, rgba(255, 126, 95, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
         }
+        
+        /* Launch Special Logic */
+        .pricing-card.launch-special {
+            border-color: var(--mint);
+            background: linear-gradient(180deg, rgba(201, 255, 232, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+        }
 
         .badge {
             position: absolute;
@@ -168,6 +173,11 @@
             border-radius: 20px;
             letter-spacing: 0.05em;
             text-transform: uppercase;
+        }
+        
+        .badge.mint {
+            background: var(--mint);
+            color: #000;
         }
 
         .plan-name {
@@ -257,6 +267,16 @@
         }
 
         .cta-ghost:hover { background: rgba(255, 126, 95, 0.1); }
+        
+        /* New Mint Ghost Button for Launch */
+        .cta-ghost.mint {
+            border-color: var(--mint);
+            color: var(--mint);
+        }
+        .cta-ghost.mint:hover {
+            background: rgba(201, 255, 232, 0.1);
+            box-shadow: 0 0 20px rgba(201, 255, 232, 0.2);
+        }
 
         .validation-note {
             margin-top: 20px;
@@ -279,10 +299,8 @@
 <body>
 
     <header id="main-header">
-        <!-- Changed link to ../ to go back to root -->
         <a href="../" class="brand">NAIR ENGINEERING</a>
         <div style="display: flex; align-items: center; gap: 10px;">
-            <!-- Changed link to ../ to go back to root -->
             <a href="../" class="nav-btn">HOME</a>
         </div>
     </header>
@@ -293,19 +311,19 @@
             <div style="font-family: var(--font-display); letter-spacing: 3px; font-size: 0.9rem; color: var(--coral); margin-bottom: 10px;">VIVRAL INTELLIGENCE</div>
             <h1>Choose Your Engine.</h1>
             <p class="subtitle">
-                Deploy supreme medical intelligence to your pocket. All data remains local. Select the power tier that fits your workflow.
+                To celebrate our global launch, we are opening the gates. Deploy supreme medical intelligence to your pocket. All data remains local.
             </p>
         </div>
 
         <div class="pricing-grid">
 
-            <!-- 1. STUDENT PLAN -->
-            <div class="pricing-card" style="transition-delay: 0.1s;">
-                <div class="plan-name" style="color: var(--mint);">Student</div>
+            <div class="pricing-card launch-special" style="transition-delay: 0.1s;">
+                <div class="badge mint">Launch Special</div>
+                <div class="plan-name" style="color: var(--mint);">Launch Edition</div>
                 <div class="price-container">
                     <span class="currency">$</span>
                     <span class="price">0</span>
-                    <span class="period">/ limited time</span>
+                    <span class="period">/ forever</span>
                 </div>
                 
                 <div class="divider"></div>
@@ -313,7 +331,7 @@
                 <ul class="features-list">
                     <li>
                         <svg class="icon-check" style="color: var(--mint);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        <strong>University of Florida Exclusive</strong>
+                        <strong>Global Access (Open to All)</strong>
                     </li>
                     <li>
                         <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
@@ -321,21 +339,20 @@
                     </li>
                     <li>
                         <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Local Processing
+                        100% On-Device Processing
                     </li>
                     <li>
                         <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Valid UF ID Required
+                        No Credit Card Required
                     </li>
                 </ul>
 
-                <button class="cta-btn cta-ghost" style="border-color: var(--mint); color: var(--mint);">Verify ID</button>
+                <button class="cta-btn cta-ghost mint">Claim Free Access</button>
                 <div class="validation-note">
-                    Requires .edu email verification. Access is valid for one semester at a time.
+                    <strong>Launch Window Open:</strong> Secure your account now. Early adopters keep this tier for free, forever.
                 </div>
             </div>
 
-            <!-- 2. PLUS MONTHLY -->
             <div class="pricing-card" style="transition-delay: 0.2s;">
                 <div class="plan-name">Plus Monthly</div>
                 <div class="price-container">
@@ -371,7 +388,6 @@
                 </div>
             </div>
 
-            <!-- 3. PLUS YEARLY -->
             <div class="pricing-card highlight" style="transition-delay: 0.3s;">
                 <div class="badge">Best Value</div>
                 <div class="plan-name" style="color: var(--coral-deep);">Plus Yearly</div>
