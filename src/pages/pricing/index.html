@@ -155,7 +155,7 @@
             background: linear-gradient(180deg, rgba(255, 126, 95, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
         }
         
-        /* Launch Special Logic */
+        /* Launch Special Logic (Applied to all now) */
         .pricing-card.launch-special {
             border-color: var(--mint);
             background: linear-gradient(180deg, rgba(201, 255, 232, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
@@ -193,18 +193,31 @@
             margin-bottom: 30px;
             display: flex;
             align-items: baseline;
+            flex-wrap: wrap;
         }
 
         .currency { font-size: 1.5rem; vertical-align: top; margin-right: 4px; color: var(--coral); }
         .price { font-size: 3.5rem; font-weight: 700; color: #fff; line-height: 1; }
         .period { color: rgba(255,255,255,0.4); font-size: 1rem; margin-left: 8px; }
         
+        /* New Strikethrough style */
+        .strike-price {
+            text-decoration: line-through;
+            text-decoration-color: var(--coral-deep);
+            text-decoration-thickness: 3px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 1.5rem;
+            margin-right: 12px;
+            font-family: var(--font-display);
+        }
+
         .discount-text {
             color: var(--mint);
             font-size: 0.9rem;
             font-weight: 700;
             margin-top: 8px;
             display: block;
+            width: 100%;
         }
 
         .divider {
@@ -268,7 +281,6 @@
 
         .cta-ghost:hover { background: rgba(255, 126, 95, 0.1); }
         
-        /* New Mint Ghost Button for Launch */
         .cta-ghost.mint {
             border-color: var(--mint);
             color: var(--mint);
@@ -311,15 +323,14 @@
             <div style="font-family: var(--font-display); letter-spacing: 3px; font-size: 0.9rem; color: var(--coral); margin-bottom: 10px;">VIVRAL INTELLIGENCE</div>
             <h1>Choose Your Engine.</h1>
             <p class="subtitle">
-                To celebrate our global launch, we are opening the gates. Deploy supreme medical intelligence to your pocket. All data remains local.
+                To celebrate our global launch, we are removing all barriers. Every tier is currently free. Claim your preferred power level now.
             </p>
         </div>
 
         <div class="pricing-grid">
 
-            <div class="pricing-card launch-special" style="transition-delay: 0.1s;">
-                <div class="badge mint">Launch Special</div>
-                <div class="plan-name" style="color: var(--mint);">Launch Edition</div>
+            <div class="pricing-card" style="transition-delay: 0.1s;">
+                <div class="plan-name" style="color: var(--mint);">Standard</div>
                 <div class="price-container">
                     <span class="currency">$</span>
                     <span class="price">0</span>
@@ -330,8 +341,8 @@
 
                 <ul class="features-list">
                     <li>
-                        <svg class="icon-check" style="color: var(--mint);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        <strong>Global Access (Open to All)</strong>
+                        <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <strong>Global Access</strong>
                     </li>
                     <li>
                         <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
@@ -341,24 +352,23 @@
                         <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         100% On-Device Processing
                     </li>
-                    <li>
-                        <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        No Credit Card Required
-                    </li>
                 </ul>
 
-                <button class="cta-btn cta-ghost mint">Claim Free Access</button>
+                <button class="cta-btn cta-ghost">Get Standard</button>
                 <div class="validation-note">
-                    <strong>Launch Window Open:</strong> Secure your account now. Early adopters keep this tier for free, forever.
+                    Basic access. Always free.
                 </div>
             </div>
 
-            <div class="pricing-card" style="transition-delay: 0.2s;">
-                <div class="plan-name">Plus Monthly</div>
+            <div class="pricing-card launch-special" style="transition-delay: 0.2s;">
+                <div class="badge mint">Launch Deal</div>
+                <div class="plan-name">Pro Monthly</div>
                 <div class="price-container">
+                    <span class="strike-price">$9.99</span>
                     <span class="currency">$</span>
-                    <span class="price">29.99</span>
+                    <span class="price">0</span>
                     <span class="period">/ mo</span>
+                    <div class="discount-text">LIMITED TIME OFFER</div>
                 </div>
                 
                 <div class="divider"></div>
@@ -376,28 +386,23 @@
                         <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         Unlimited Questions
                     </li>
-                    <li>
-                        <svg class="icon-check" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Multi-model Cross Checking
-                    </li>
                 </ul>
 
-                <button class="cta-btn cta-ghost">Select Monthly</button>
+                <button class="cta-btn cta-ghost mint">Claim Pro Free</button>
                 <div class="validation-note">
-                    <strong>Validation Requirement:</strong> Device must connect to the internet once every 30 days to validate subscription token. Subscription auto-cancels if validation fails.
+                    Requires monthly token refresh via internet.
                 </div>
             </div>
 
             <div class="pricing-card highlight" style="transition-delay: 0.3s;">
                 <div class="badge">Best Value</div>
-                <div class="plan-name" style="color: var(--coral-deep);">Plus Yearly</div>
-                <div class="price-container" style="flex-wrap: wrap;">
+                <div class="plan-name" style="color: var(--coral-deep);">Pro Yearly</div>
+                <div class="price-container">
+                    <span class="strike-price">$4.99</span>
                     <span class="currency">$</span>
-                    <span class="price">19.99</span>
+                    <span class="price">0</span>
                     <span class="period">/ mo</span>
-                    <div style="width: 100%; margin-top: 5px;">
-                        <span class="discount-text">SAVE 33%</span>
-                    </div>
+                    <div class="discount-text">CLAIM LIFETIME ACCESS</div>
                 </div>
                 
                 <div class="divider"></div>
@@ -405,7 +410,11 @@
                 <ul class="features-list">
                     <li>
                         <svg class="icon-check" style="color: var(--coral-deep);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Access to Advanced Vivral Models
+                        <strong>All Pro Features</strong>
+                    </li>
+                    <li>
+                        <svg class="icon-check" style="color: var(--coral-deep);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        Advanced Vivral Models
                     </li>
                     <li>
                         <svg class="icon-check" style="color: var(--coral-deep);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
@@ -413,17 +422,13 @@
                     </li>
                     <li>
                         <svg class="icon-check" style="color: var(--coral-deep);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                        Unlimited Questions
-                    </li>
-                    <li>
-                        <svg class="icon-check" style="color: var(--coral-deep);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                         Multi-model Cross Checking
                     </li>
                 </ul>
 
-                <button class="cta-btn cta-primary">Select Yearly</button>
+                <button class="cta-btn cta-primary">Lock In Yearly</button>
                 <div class="validation-note" style="color: rgba(255, 126, 95, 0.6);">
-                    <strong>Seamless Validation:</strong> Device only requires internet connection once per year (365 days) to validate subscription token. Billed annually.
+                    <strong>Seamless:</strong> Only requires 1 check-in per year.
                 </div>
             </div>
 
@@ -431,7 +436,6 @@
     </div>
 
     <script>
-        // Simple Scroll Reveal Observer matching the main page
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
