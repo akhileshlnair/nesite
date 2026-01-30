@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Vivral - Nair Engineering</title>
+
+    <link rel="icon" type="image/png" href="NELOGO.png">
+    <style>
+        /* --- PALETTE & VARS (Inherited from Main) --- */
+        :root {
+            --bg-deep: #050508;
+            --coral: #FFBFA8;        
+            --coral-deep: #FF7E5F;   
+            --mint: #C9FFE8;         
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --curve-xl: 40px;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-display: "Futura", "Helvetica Neue", sans-serif;
+            --ease-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        /* --- RESET --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-deep);
+            background: radial-gradient(circle at top right, #1c1426 0%, var(--bg-deep) 60%);
+            color: #ffffff;
+            font-family: var(--font-main);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* No Scroll */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- HEADER (Consistent) --- */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            padding: 16px 32px;
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0; /* Hidden for animation */
+            animation: fadeInDown 1s var(--ease-smooth) forwards 0.5s;
+        }
+        
+        .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--coral);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .nav-group { display: flex; gap: 24px; align-items: center; }
+        .nav-text { text-decoration: none; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 500; text-transform: uppercase; transition: 0.3s; }
+        .nav-text:hover { color: #fff; }
+        .nav-btn {
+            text-decoration: none; color: rgba(255, 255, 255, 0.8); font-size: 0.85rem; font-weight: 600; padding: 10px 24px;
+            border-radius: 50px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); transition: 0.3s; text-transform: uppercase;
+        }
+        .nav-btn:hover { background: rgba(255, 255, 255, 0.15); color: var(--coral); border-color: rgba(255, 255, 255, 0.3); }
+
+        /* --- MAIN LAYOUT --- */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 80px;
+            max-width: 1100px;
+            width: 100%;
+            align-items: center;
+        }
+
+        /* --- TYPOGRAPHY & TEXT COLUMN --- */
+        .hologram-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 5vw, 5rem);
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+        }
+
+        .sub-text {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        /* Feature List */
+        .feature-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .feature-icon {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            background: rgba(201, 255, 232, 0.1);
+            color: var(--mint);
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(201, 255, 232, 0.2);
+        }
+        .feature-text { font-size: 1rem; color: rgba(255,255,255,0.9); letter-spacing: 0.05em; }
+
+        /* --- QR CARD COMPONENT --- */
+        .qr-card-container {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--curve-xl);
+            padding: 40px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: transform 0.5s var(--ease-smooth);
+        }
+
+        .glass-panel:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--mint);
+            box-shadow: 0 0 30px rgba(201, 255, 232, 0.1);
+        }
+
+        /* QR Placeholder Art */
+        .qr-placeholder {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px auto;
+            border: 2px dashed rgba(255,255,255,0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .qr-placeholder::before {
+            content: '';
+            position: absolute;
+            width: 100%; height: 2px;
+            background: var(--coral);
+            top: 10%;
+            animation: scan 2.5s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--coral);
+            opacity: 0.8;
+        }
+
+        .pill-coming-soon {
+            display: inline-block;
+            padding: 10px 24px;
+            background: rgba(255, 126, 95, 0.15);
+            color: var(--coral-deep);
+            border: 1px solid var(--coral-deep);
+            border-radius: 50px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(255, 126, 95, 0.2);
+            animation: pulse 3s infinite;
+        }
+
+        .platform-text {
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- ANIMATION UTILS --- */
+        .anim-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s var(--ease-smooth);
+        }
+        
+        .anim-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translate(-50%, -20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        @keyframes scan { 0%, 100% { top: 10%; opacity: 0; } 50% { opacity: 1; } 90% { top: 90%; opacity: 0; } }
+        @keyframes pulse { 0% { opacity: 0.7; transform: scale(0.98); } 50% { opacity: 1; transform: scale(1); } 100% { opacity: 0.7; transform: scale(0.98); } }
+
+        /* --- MOBILE --- */
+        @media (max-width: 900px) {
+            body { overflow-y: auto; height: auto; padding-top: 100px; padding-bottom: 40px; }
+            .hero-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+            .hologram-title { font-size: 3rem; }
+            .feature-row { justify-content: center; }
+            .sub-text { margin: 0 auto 30px auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">NAIR ENGINEERING</div>
+        <div class="nav-group">
+            <a href="index.html" class="nav-text">HOME</a>
+            <a href="#" class="nav-btn">NOTIFY ME</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero-grid">
+            
+            <div id="text-col">
+                <div class="anim-element" style="transition-delay: 0.2s;">
+                    <span style="color: var(--mint); font-family: var(--font-display); letter-spacing: 0.2em; font-size: 0.9rem; text-transform: uppercase;">
+                        Vivral Mobile
+                    </span>
+                </div>
+                
+                <h1 class="hologram-title anim-element" style="transition-delay: 0.4s;">
+                    Pocket<br>Intelligence.
+                </h1>
+
+                <p class="sub-text anim-element" style="transition-delay: 0.6s;">
+                    The world's most capable medical reasoning engine, optimized for your device. Zero latency. 100% Offline. Your health data never leaves the Secure Enclave.
+                </p>
+
+                <div class="anim-element" style="transition-delay: 0.8s;">
+                    <div class="feature-row">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-text">Local Neural Engine (No Cloud)</div>
+                    </div>
+                    <div class="feature-row">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-text">Instant Diagnostics</div>
+                    </div>
+                    <div class="feature-row">
+                        <div class="feature-icon">✓</div>
+                        <div class="feature-text">Medical Grade Privacy</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="qr-col" class="anim-element" style="transition-delay: 1.0s;">
+                <div class="qr-card-container">
+                    <div class="glass-panel">
+                        
+                        <div class="qr-placeholder">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <path d="M3 14h7v7H3z"></path>
+                            </svg>
+                        </div>
+
+                        <div class="pill-coming-soon">Coming Soon</div>
+
+                        <div class="platform-text">
+                            iOS &nbsp; • &nbsp; Android &nbsp; • &nbsp; iPadOS
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Simple entrance animation trigger
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.anim-element');
+            
+            // Trigger animations
+            setTimeout(() => {
+                elements.forEach(el => {
+                    el.classList.add('visible');
+                });
+            }, 100);
+        });
+    </script>
+
+</body>
+</html>
