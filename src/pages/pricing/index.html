@@ -130,7 +130,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr); /* Strict 3 columns like screenshot */
             gap: 24px;
-            margin-bottom: 60px;
+            margin-bottom: 80px; /* Increased margin to separate from compare section */
         }
 
         .pricing-card {
@@ -204,34 +204,95 @@
             max-width: 240px; /* Constrain width for readability */
         }
 
-        /* 5. Button (e.g. Upgrade) */
-        .btn-upgrade {
-            margin-top: auto; /* Push to bottom */
-            background: var(--coral-deep);
-            color: #050508;
-            font-weight: 700;
-            font-size: 0.9rem;
-            padding: 10px 32px;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .btn-upgrade:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 126, 95, 0.4);
-        }
-
         /* Specific card variants for visual hierarchy */
         .pricing-card.featured {
             border-color: var(--coral-deep);
             background: rgba(255, 126, 95, 0.05);
         }
 
+
+        /* --- NEW COMPARE SECTION --- */
+        .compare-section {
+            width: 100%;
+            max-width: 1000px; /* Slightly narrower than cards to focus eye */
+            margin: 0 auto;
+            text-align: left;
+            opacity: 0; /* Animated in JS */
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .compare-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .compare-grid {
+            display: grid;
+            /* 4 Columns: Feature Label (1.5fr) | Swift (1fr) | Pro (1fr) | Surreal (1fr) */
+            grid-template-columns: 1.5fr repeat(3, 1fr); 
+            width: 100%;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* Row Styling */
+        .compare-row {
+            display: contents; /* Allows children to sit on the main grid */
+        }
+
+        .cell {
+            padding: 20px 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Label Column (Left) */
+        .cell.label {
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+        }
+
+        /* Header Row in Comparison */
+        .compare-header-row .cell {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--coral);
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 15px;
+            justify-content: center;
+        }
+        .compare-header-row .cell.label {
+            justify-content: flex-start;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* Data Columns (Center Aligned) */
+        .cell.data {
+            justify-content: center;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .cell.data.highlight {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* Icons */
+        .icon-check { color: var(--mint); font-size: 1.1rem; }
+        .icon-dash { color: rgba(255,255,255,0.2); }
+
+
         /* --- BOTTOM FOOTER --- */
         .pricing-footer {
-            margin-top: 60px;
+            margin-top: 80px;
             color: rgba(255,255,255,0.6);
             font-size: 0.9rem;
             line-height: 1.6;
@@ -240,28 +301,23 @@
             margin-right: auto;
         }
 
-        .compare-btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 12px 30px;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: background 0.3s ease;
-        }
-        .compare-btn:hover { background: rgba(255,255,255,0.2); }
-
         /* --- MOBILE --- */
         @media (max-width: 900px) {
             .pricing-grid {
                 grid-template-columns: 1fr;
                 max-width: 400px;
-                margin: 0 auto;
+                margin: 0 auto 60px auto;
             }
             .pricing-header h1 { font-size: 2.5rem; }
+
+            /* Mobile Compare Table: Horizontal Scroll */
+            .compare-section {
+                overflow-x: auto;
+                padding-bottom: 20px;
+            }
+            .compare-grid {
+                min-width: 600px; /* Force scroll on small screens */
+            }
         }
     </style>
 </head>
@@ -322,6 +378,69 @@
 
         </div>
 
+        <div class="compare-section" style="transition-delay: 0.4s;">
+            <h2 class="compare-title">Detailed Comparison</h2>
+            
+            <div class="compare-grid">
+                
+                <div class="compare-row compare-header-row">
+                    <div class="cell label">Features</div>
+                    <div class="cell">Swift</div>
+                    <div class="cell">Pro</div>
+                    <div class="cell">Surreal</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="cell label">AI Model Access</div>
+                    <div class="cell data">Swift V1</div>
+                    <div class="cell data highlight">Swift V2 + Surreal</div>
+                    <div class="cell data highlight">All Models + Beta</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="cell label">Reasoning Depth</div>
+                    <div class="cell data">Standard</div>
+                    <div class="cell data">Advanced</div>
+                    <div class="cell data highlight">Step-by-Step</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="cell label">Context Window</div>
+                    <div class="cell data">8k Tokens</div>
+                    <div class="cell data">32k Tokens</div>
+                    <div class="cell data highlight">128k Tokens</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="cell label">Patient Passport</div>
+                    <div class="cell data">Read-Only</div>
+                    <div class="cell data highlight">Edit + Sync</div>
+                    <div class="cell data highlight">Full History</div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="cell label">Apple Health Sync</div>
+                    <div class="cell data"><span class="icon-dash">—</span></div>
+                    <div class="cell data"><span class="icon-check">✔</span></div>
+                    <div class="cell data"><span class="icon-check">✔</span></div>
+                </div>
+
+                <div class="compare-row">
+                    <div class="cell label">Telehealth Integration</div>
+                    <div class="cell data"><span class="icon-dash">—</span></div>
+                    <div class="cell data"><span class="icon-dash">—</span></div>
+                    <div class="cell data"><span class="icon-check">✔</span></div>
+                </div>
+
+                 <div class="compare-row">
+                    <div class="cell label" style="border-bottom: none;">Encryption</div>
+                    <div class="cell data" style="border-bottom: none;">Standard</div>
+                    <div class="cell data highlight" style="border-bottom: none;">AES-256 + Local</div>
+                    <div class="cell data highlight" style="border-bottom: none;">Enterprise</div>
+                </div>
+
+            </div>
+        </div>
         <div class="pricing-footer">
             Every Vivral plan includes unlimited access to Vivral Swift V1, our most compatible and fastest model. Updated versions of Vivral Swift and unrestricted access to Vivral Surreal
             is only available for Vivral+ plans. 
@@ -341,8 +460,8 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.pricing-card').forEach(card => {
-            observer.observe(card);
+        document.querySelectorAll('.pricing-card, .compare-section').forEach(el => {
+            observer.observe(el);
         });
     </script>
 </body>
