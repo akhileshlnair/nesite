@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers | Nair Engineering</title>
+
+    <link rel="icon" type="image/png" href="NELOGO.png">
+    
+    <style>
+        /* --- PALETTE: Warm Humanist Futurism --- */
+        :root {
+            --bg-deep: #050508;
+            --coral: #FFBFA8;        /* Soft Coral Accent */
+            --coral-deep: #FF7E5F;   /* Vibrant Coral */
+            --mint: #C9FFE8;         /* Mint Accent */
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --curve-xl: 40px;
+            --curve-md: 24px;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-display: "Futura", "Helvetica Neue", sans-serif; 
+            --ease-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        /* --- RESET --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: #ffffff;
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 100px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            padding: 16px 32px;
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--coral);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .nav-group { display: flex; align-items: center; gap: 24px; }
+        .nav-text {
+            text-decoration: none;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        .nav-text:hover { color: #fff; }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #fff 0%, var(--coral) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 180px 20px 0;
+            min-height: 100vh;
+        }
+
+        /* --- HERO SECTION --- */
+        .career-hero {
+            text-align: center;
+            margin-bottom: 100px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            color: var(--mint);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: inline-block;
+            border: 1px solid rgba(201, 255, 232, 0.2);
+            padding: 8px 16px;
+            border-radius: 50px;
+            background: rgba(201, 255, 232, 0.05);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 30px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: rgba(255, 126, 95, 0.1);
+            border: 1px solid rgba(255, 126, 95, 0.3);
+            color: var(--coral-deep);
+            padding: 16px;
+            border-radius: 12px;
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- JOB BOARD UI --- */
+        .job-board {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--curve-xl);
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.8s 0.3s ease forwards;
+        }
+
+        /* Filters */
+        .filter-bar {
+            display: flex;
+            gap: 30px;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.5);
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            letter-spacing: 0.05em;
+        }
+
+        .filter-btn.active, .filter-btn:hover { color: var(--coral); }
+
+        /* Role Row */
+        .role-row {
+            display: grid;
+            grid-template-columns: 3fr 2fr 1fr;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .role-row:last-child { border-bottom: none; }
+        .role-row:hover {
+            background: rgba(255,255,255,0.03);
+            padding-left: 20px; /* Slight shift effect */
+            border-radius: 12px;
+            border-bottom: 1px solid transparent;
+        }
+
+        .role-title { font-size: 1.2rem; font-weight: 600; color: #fff; margin-bottom: 4px; }
+        .role-team { font-size: 0.85rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; }
+        .role-tags { display: flex; gap: 10px; }
+        
+        .tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.8);
+        }
+
+        .arrow-icon {
+            justify-self: end;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: var(--coral);
+        }
+
+        .role-row:hover .arrow-icon { opacity: 1; transform: translateX(0); }
+
+        /* --- DETAIL PAGE (HIDDEN BY DEFAULT) --- */
+        .detail-view {
+            display: none; /* Toggled via JS */
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            margin-bottom: 40px;
+            transition: color 0.3s;
+        }
+        .back-btn:hover { color: var(--coral); }
+
+        .detail-header { margin-bottom: 60px; border-bottom: 1px solid var(--glass-border); padding-bottom: 40px; }
+        .detail-title { font-size: 3.5rem; margin-bottom: 20px; }
+        .detail-meta { display: flex; gap: 30px; color: var(--mint); font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.9rem; }
+
+        .detail-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+        }
+
+        .prose p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 24px;
+        }
+
+        .prose ul {
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+        
+        .prose li {
+            margin-bottom: 12px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+        }
+        
+        .prose h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 40px 0 20px;
+        }
+
+        .sidebar-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 30px;
+            position: sticky;
+            top: 120px;
+        }
+
+        .apply-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: var(--coral);
+            color: #000;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+        .apply-btn:hover { transform: translateY(-2px); background: #fff; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Mobile */
+        @media (max-width: 800px) {
+            .detail-content { grid-template-columns: 1fr; }
+            .role-row { grid-template-columns: 1fr; gap: 10px; }
+            .role-tags { display: none; }
+            .sidebar-card { position: static; margin-top: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand" onclick="showBoard()">NAIR ENGINEERING</div>
+        <div class="nav-group">
+            <a href="index.html" class="nav-text">Home</a>
+            <a href="#" class="nav-text" style="color: #fff;">Careers</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div id="view-board">
+            <section class="career-hero">
+                <div class="tagline">Students & Visionaries Only</div>
+                <h1 class="hero-title">Build the <span class="gradient-text">Unthinkable.</span></h1>
+                <p class="hero-desc">
+                    We are building the world's most advanced local medical intelligence. 
+                    We don't care about your GPA. We care about your ability to ship.
+                </p>
+                <div class="warning-box">
+                    ⚠️ DISCLAIMER: We do not offer salary. We offer equity. High risk, infinite reward.
+                </div>
+            </section>
+
+            <div class="job-board">
+                <div class="filter-bar">
+                    <button class="filter-btn active">All Roles</button>
+                    <button class="filter-btn">Engineering</button>
+                    <button class="filter-btn">Research</button>
+                    <button class="filter-btn">Design</button>
+                </div>
+
+                <div class="role-row" onclick="showRole('mle')">
+                    <div>
+                        <div class="role-title">Machine Learning Engineer</div>
+                        <div class="role-team">Core Research • New York / Remote</div>
+                    </div>
+                    <div class="role-tags">
+                        <span class="tag">Quantization</span>
+                        <span class="tag">Edge Inference</span>
+                    </div>
+                    <div class="arrow-icon">→</div>
+                </div>
+
+                <div class="role-row" onclick="alert('This role follows the same template. Click MLE to see the detail view.')">
+                    <div>
+                        <div class="role-title">iOS Engineer (Metal/Swift)</div>
+                        <div class="role-team">Product Engineering • Remote</div>
+                    </div>
+                    <div class="role-tags">
+                        <span class="tag">SwiftUI</span>
+                        <span class="tag">Metal Performance Shaders</span>
+                    </div>
+                    <div class="arrow-icon">→</div>
+                </div>
+
+                <div class="role-row" onclick="alert('This role follows the same template. Click MLE to see the detail view.')">
+                    <div>
+                        <div class="role-title">Systems Engineer</div>
+                        <div class="role-team">Infrastructure • Remote</div>
+                    </div>
+                    <div class="role-tags">
+                        <span class="tag">C++</span>
+                        <span class="tag">Optimization</span>
+                    </div>
+                    <div class="arrow-icon">→</div>
+                </div>
+
+                <div class="role-row" onclick="alert('This role follows the same template. Click MLE to see the detail view.')">
+                    <div>
+                        <div class="role-title">Product Designer</div>
+                        <div class="role-team">Design • New York</div>
+                    </div>
+                    <div class="role-tags">
+                        <span class="tag">UI/UX</span>
+                        <span class="tag">Motion</span>
+                    </div>
+                    <div class="arrow-icon">→</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="view-mle" class="detail-view">
+            <div class="back-btn" onclick="showBoard()">
+                ← Back to Open Roles
+            </div>
+
+            <div class="detail-header">
+                <h1 class="detail-title">Machine Learning Engineer</h1>
+                <div class="detail-meta">
+                    <span>Engineering</span>
+                    <span>•</span>
+                    <span>Remote / NYC</span>
+                    <span>•</span>
+                    <span style="color: var(--coral-deep);">Equity Only</span>
+                </div>
+            </div>
+
+            <div class="detail-content">
+                <div class="prose">
+                    <h3>The Role</h3>
+                    <p>
+                        We are looking for engineers who are obsessed with efficiency. At Nair Engineering, we are not training massive models on cloud clusters. We are taking state-of-the-art medical intelligence and compressing it into the secure enclave of a consumer device.
+                    </p>
+                    <p>
+                        You will work on the bleeding edge of quantization, sparsity, and speculative decoding. Your code will run on the NPU, GPU, and CPU of mobile devices, delivering life-saving insights with 0ms latency and 100% privacy.
+                    </p>
+
+                    <h3>About You</h3>
+                    <p>
+                        You don't need a PhD (though we like them). You need to understand how computers actually work. We prefer students, dropouts, and hackers who have contributed to open-source projects like `llama.cpp` or `tinygrad` over those with corporate accolades.
+                    </p>
+                    <ul>
+                        <li>Strong experience with Python and C++.</li>
+                        <li>Deep understanding of Transformer architecture internals (KV-cache management, attention mechanisms).</li>
+                        <li>Experience with model compression techniques (Quantization, Pruning, Distillation).</li>
+                        <li>Familiarity with on-device inference frameworks (CoreML, ONNX Runtime, TFLite).</li>
+                        <li>Ability to read a paper on Arxiv and implement it over the weekend.</li>
+                    </ul>
+
+                    <h3>The Tech Stack</h3>
+                    <ul>
+                        <li><strong>Languages:</strong> Python, C++, Swift, Metal Shading Language.</li>
+                        <li><strong>Frameworks:</strong> PyTorch, MLX (Apple Silicon), CoreML.</li>
+                        <li><strong>Hardware:</strong> Apple Neural Engine, Mobile GPUs.</li>
+                    </ul>
+
+                    <h3>The Deal</h3>
+                    <p>
+                        This is not a 9-to-5. This is a mission. We are a small, tight-knit team. We do not pay salaries. We pay in generous stock options. If we succeed, you own a piece of the future of medicine. If we fail, you learned how to build the impossible.
+                    </p>
+                </div>
+
+                <aside>
+                    <div class="sidebar-card">
+                        <h4 style="margin-bottom: 20px; color: var(--coral);">Apply for this role</h4>
+                        <a href="mailto:careers@nairengineering.com?subject=MLE Application" class="apply-btn">Apply via Email</a>
+                        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.5;">
+                            Please attach your GitHub, Resume, and a brief explanation of the hardest bug you've ever solved.
+                        </p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Simple Single-Page Routing Logic
+        function showRole(roleId) {
+            document.getElementById('view-board').style.display = 'none';
+            document.getElementById('view-mle').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function showBoard() {
+            document.getElementById('view-mle').style.display = 'none';
+            document.getElementById('view-board').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
