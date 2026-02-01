@@ -63,8 +63,10 @@
             color: var(--coral);
             text-transform: uppercase;
             font-size: 0.9rem;
-            cursor: pointer;
+            text-decoration: none;
+            transition: opacity 0.3s;
         }
+        .brand:hover { opacity: 0.8; }
 
         .nav-group { display: flex; align-items: center; gap: 24px; }
         .nav-text {
@@ -81,10 +83,10 @@
         /* --- TYPOGRAPHY --- */
         h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; }
         
-        .gradient-text {
-            background: linear-gradient(135deg, #fff 0%, var(--coral) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Removed gradient per request, keeping the variable for other uses if needed */
+        .solid-hero-text {
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(255,255,255,0.2);
         }
 
         /* --- LAYOUT --- */
@@ -98,7 +100,7 @@
         /* --- HERO SECTION --- */
         .career-hero {
             text-align: center;
-            margin-bottom: 100px;
+            margin-bottom: 80px;
             opacity: 0;
             animation: fadeIn 1s ease forwards;
         }
@@ -143,6 +145,39 @@
             letter-spacing: 0.05em;
         }
 
+        /* --- INTERVIEW PROCESS --- */
+        .process-section {
+            margin-bottom: 80px;
+            padding: 40px;
+            border-radius: var(--curve-xl);
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .process-step {
+            position: relative;
+        }
+        
+        .step-num { 
+            font-family: var(--font-display); 
+            font-size: 3rem; 
+            color: rgba(255,255,255,0.1); 
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            left: 0;
+        }
+        
+        .step-title { margin-top: 30px; font-weight: 700; margin-bottom: 10px; color: var(--mint); }
+        .step-desc { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
         /* --- JOB BOARD UI --- */
         .job-board {
             background: var(--glass-bg);
@@ -162,6 +197,7 @@
             border-bottom: 1px solid var(--glass-border);
             padding-bottom: 20px;
             margin-bottom: 30px;
+            overflow-x: auto;
         }
 
         .filter-btn {
@@ -175,6 +211,7 @@
             cursor: pointer;
             transition: color 0.3s ease;
             letter-spacing: 0.05em;
+            white-space: nowrap;
         }
 
         .filter-btn.active, .filter-btn:hover { color: var(--coral); }
@@ -191,11 +228,13 @@
             text-decoration: none;
             color: inherit;
         }
+        
+        .role-row.hidden { display: none; } /* Used for filtering */
 
         .role-row:last-child { border-bottom: none; }
         .role-row:hover {
             background: rgba(255,255,255,0.03);
-            padding-left: 20px; /* Slight shift effect */
+            padding-left: 20px; 
             border-radius: 12px;
             border-bottom: 1px solid transparent;
         }
@@ -312,13 +351,14 @@
             .role-row { grid-template-columns: 1fr; gap: 10px; }
             .role-tags { display: none; }
             .sidebar-card { position: static; margin-top: 40px; }
+            .process-grid { grid-template-columns: 1fr; gap: 40px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="brand" onclick="showBoard()">NAIR ENGINEERING</div>
+        <a href="index.html" class="brand">NAIR ENGINEERING</a>
         <div class="nav-group">
             <a href="index.html" class="nav-text">Home</a>
             <a href="#" class="nav-text" style="color: #fff;">Careers</a>
@@ -329,8 +369,8 @@
 
         <div id="view-board">
             <section class="career-hero">
-                <div class="tagline">Students & Visionaries Only</div>
-                <h1 class="hero-title">Build the <span class="gradient-text">Unthinkable.</span></h1>
+                <div class="tagline">Students, Dropouts & Misfits</div>
+                <h1 class="hero-title solid-hero-text">Build the Unthinkable.</h1>
                 <p class="hero-desc">
                     We are building the world's most advanced local medical intelligence. 
                     We don't care about your GPA. We care about your ability to ship.
@@ -340,18 +380,44 @@
                 </div>
             </section>
 
+            <section class="process-section">
+                <h3 style="text-align: center; margin-bottom: 40px; color: var(--mint);">THE GAUNTLET</h3>
+                <div class="process-grid">
+                    <div class="process-step">
+                        <div class="step-num">01</div>
+                        <div class="step-title">The Pitch</div>
+                        <div class="step-desc">No cover letters. Send us your GitHub and the hardest problem you've ever solved.</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-num">02</div>
+                        <div class="step-title">The Build</div>
+                        <div class="step-desc">We give you a broken piece of our engine. You have 48 hours to fix it and optimize it.</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-num">03</div>
+                        <div class="step-title">The Deep Dive</div>
+                        <div class="step-desc">A whiteboarding session with the core team. We will tear your code apart.</div>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-num">04</div>
+                        <div class="step-title">Initiation</div>
+                        <div class="step-desc">You get a grant of stock options and a key to the repo. Welcome to the future.</div>
+                    </div>
+                </div>
+            </section>
+
             <div class="job-board">
                 <div class="filter-bar">
-                    <button class="filter-btn active">All Roles</button>
-                    <button class="filter-btn">Engineering</button>
-                    <button class="filter-btn">Research</button>
-                    <button class="filter-btn">Design</button>
+                    <button class="filter-btn active" onclick="filterRoles('all')">All Roles</button>
+                    <button class="filter-btn" onclick="filterRoles('engineering')">Engineering</button>
+                    <button class="filter-btn" onclick="filterRoles('research')">Research</button>
+                    <button class="filter-btn" onclick="filterRoles('design')">Design</button>
                 </div>
 
-                <div class="role-row" onclick="showRole('mle')">
+                <div class="role-row" data-category="research" onclick="showRole('mle')">
                     <div>
                         <div class="role-title">Machine Learning Engineer</div>
-                        <div class="role-team">Core Research • New York / Remote</div>
+                        <div class="role-team">Research • Gainesville, FL / Remote</div>
                     </div>
                     <div class="role-tags">
                         <span class="tag">Quantization</span>
@@ -360,22 +426,22 @@
                     <div class="arrow-icon">→</div>
                 </div>
 
-                <div class="role-row" onclick="alert('This role follows the same template. Click MLE to see the detail view.')">
+                <div class="role-row" data-category="engineering" onclick="showRole('ios')">
                     <div>
                         <div class="role-title">iOS Engineer (Metal/Swift)</div>
-                        <div class="role-team">Product Engineering • Remote</div>
+                        <div class="role-team">Engineering • Gainesville, FL / Remote</div>
                     </div>
                     <div class="role-tags">
                         <span class="tag">SwiftUI</span>
-                        <span class="tag">Metal Performance Shaders</span>
+                        <span class="tag">Metal</span>
                     </div>
                     <div class="arrow-icon">→</div>
                 </div>
 
-                <div class="role-row" onclick="alert('This role follows the same template. Click MLE to see the detail view.')">
+                <div class="role-row" data-category="engineering" onclick="showRole('systems')">
                     <div>
                         <div class="role-title">Systems Engineer</div>
-                        <div class="role-team">Infrastructure • Remote</div>
+                        <div class="role-team">Engineering • Gainesville, FL / Remote</div>
                     </div>
                     <div class="role-tags">
                         <span class="tag">C++</span>
@@ -384,14 +450,14 @@
                     <div class="arrow-icon">→</div>
                 </div>
 
-                <div class="role-row" onclick="alert('This role follows the same template. Click MLE to see the detail view.')">
+                <div class="role-row" data-category="design" onclick="showRole('design')">
                     <div>
-                        <div class="role-title">Product Designer</div>
-                        <div class="role-team">Design • New York</div>
+                        <div class="role-title">Product Designer (Retrofuturist)</div>
+                        <div class="role-team">Design • Gainesville, FL / Remote</div>
                     </div>
                     <div class="role-tags">
                         <span class="tag">UI/UX</span>
-                        <span class="tag">Motion</span>
+                        <span class="tag">Sci-Fi Aesthetics</span>
                     </div>
                     <div class="arrow-icon">→</div>
                 </div>
@@ -400,62 +466,136 @@
         </div>
 
         <div id="view-mle" class="detail-view">
-            <div class="back-btn" onclick="showBoard()">
-                ← Back to Open Roles
-            </div>
-
+            <div class="back-btn" onclick="showBoard()">← Back to Open Roles</div>
             <div class="detail-header">
                 <h1 class="detail-title">Machine Learning Engineer</h1>
                 <div class="detail-meta">
-                    <span>Engineering</span>
-                    <span>•</span>
-                    <span>Remote / NYC</span>
-                    <span>•</span>
-                    <span style="color: var(--coral-deep);">Equity Only</span>
+                    <span>Research</span> • <span>Gainesville, FL / Remote</span> • <span style="color: var(--coral-deep);">Equity Only</span>
                 </div>
             </div>
-
             <div class="detail-content">
                 <div class="prose">
                     <h3>The Role</h3>
-                    <p>
-                        We are looking for engineers who are obsessed with efficiency. At Nair Engineering, we are not training massive models on cloud clusters. We are taking state-of-the-art medical intelligence and compressing it into the secure enclave of a consumer device.
-                    </p>
-                    <p>
-                        You will work on the bleeding edge of quantization, sparsity, and speculative decoding. Your code will run on the NPU, GPU, and CPU of mobile devices, delivering life-saving insights with 0ms latency and 100% privacy.
-                    </p>
-
+                    <p>We are looking for engineers obsessed with efficiency. At Nair Engineering, we aren't training massive models on cloud clusters. We are taking state-of-the-art medical intelligence and compressing it into the secure enclave of a consumer device.</p>
+                    <p>You will work on the bleeding edge of quantization, sparsity, and speculative decoding. Your code will run on the NPU, GPU, and CPU of mobile devices, delivering life-saving insights with 0ms latency and 100% privacy.</p>
                     <h3>About You</h3>
-                    <p>
-                        You don't need a PhD (though we like them). You need to understand how computers actually work. We prefer students, dropouts, and hackers who have contributed to open-source projects like `llama.cpp` or `tinygrad` over those with corporate accolades.
-                    </p>
+                    <p>You don't need a PhD (though we like them). You need to understand how computers actually work. We prefer students and hackers who have contributed to open-source projects like `llama.cpp` or `tinygrad`.</p>
                     <ul>
                         <li>Strong experience with Python and C++.</li>
-                        <li>Deep understanding of Transformer architecture internals (KV-cache management, attention mechanisms).</li>
-                        <li>Experience with model compression techniques (Quantization, Pruning, Distillation).</li>
-                        <li>Familiarity with on-device inference frameworks (CoreML, ONNX Runtime, TFLite).</li>
+                        <li>Deep understanding of Transformer architecture internals.</li>
+                        <li>Experience with model compression (Quantization, Pruning).</li>
                         <li>Ability to read a paper on Arxiv and implement it over the weekend.</li>
                     </ul>
-
-                    <h3>The Tech Stack</h3>
-                    <ul>
-                        <li><strong>Languages:</strong> Python, C++, Swift, Metal Shading Language.</li>
-                        <li><strong>Frameworks:</strong> PyTorch, MLX (Apple Silicon), CoreML.</li>
-                        <li><strong>Hardware:</strong> Apple Neural Engine, Mobile GPUs.</li>
-                    </ul>
-
-                    <h3>The Deal</h3>
-                    <p>
-                        This is not a 9-to-5. This is a mission. We are a small, tight-knit team. We do not pay salaries. We pay in generous stock options. If we succeed, you own a piece of the future of medicine. If we fail, you learned how to build the impossible.
-                    </p>
                 </div>
-
                 <aside>
                     <div class="sidebar-card">
                         <h4 style="margin-bottom: 20px; color: var(--coral);">Apply for this role</h4>
                         <a href="mailto:careers@nairengineering.com?subject=MLE Application" class="apply-btn">Apply via Email</a>
-                        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.5;">
-                            Please attach your GitHub, Resume, and a brief explanation of the hardest bug you've ever solved.
+                        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5);">Attach GitHub & Resume.</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <div id="view-ios" class="detail-view">
+            <div class="back-btn" onclick="showBoard()">← Back to Open Roles</div>
+            <div class="detail-header">
+                <h1 class="detail-title">iOS Engineer (Metal)</h1>
+                <div class="detail-meta">
+                    <span>Engineering</span> • <span>Gainesville, FL / Remote</span> • <span style="color: var(--coral-deep);">Equity Only</span>
+                </div>
+            </div>
+            <div class="detail-content">
+                <div class="prose">
+                    <h3>The Role</h3>
+                    <p>Standard iOS development is boring. We aren't building a CRUD app. We are building a high-performance medical instrument. You will be writing Swift that touches the metal. You will be managing memory manually. You will be fighting the scheduler.</p>
+                    <h3>The Stack</h3>
+                    <ul>
+                        <li><strong>Deep Swift:</strong> Unsafe pointers, concurrency, SIMD.</li>
+                        <li><strong>Metal:</strong> Writing custom shaders for compute tasks.</li>
+                        <li><strong>UI:</strong> SwiftUI, but pushed to its absolute limits with custom layouts and animations.</li>
+                    </ul>
+                    <h3>Requirements</h3>
+                    <ul>
+                        <li>You have built an app that feels "native" but does something impossible.</li>
+                        <li>You understand the difference between the main thread and background threads intimately.</li>
+                        <li>You care about 120Hz refresh rates.</li>
+                    </ul>
+                </div>
+                <aside>
+                    <div class="sidebar-card">
+                        <h4 style="margin-bottom: 20px; color: var(--coral);">Apply for this role</h4>
+                        <a href="mailto:careers@nairengineering.com?subject=iOS Application" class="apply-btn">Apply via Email</a>
+                        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5);">Link your best App Store submission.</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <div id="view-systems" class="detail-view">
+            <div class="back-btn" onclick="showBoard()">← Back to Open Roles</div>
+            <div class="detail-header">
+                <h1 class="detail-title">Systems Engineer</h1>
+                <div class="detail-meta">
+                    <span>Engineering</span> • <span>Gainesville, FL / Remote</span> • <span style="color: var(--coral-deep);">Equity Only</span>
+                </div>
+            </div>
+            <div class="detail-content">
+                <div class="prose">
+                    <h3>The Role</h3>
+                    <p>Our software runs on limited battery and limited thermal headroom. Your job is to make sure the physics of the phone don't get in the way of the intelligence. You will optimize the pipeline from disk read to NPU inference.</p>
+                    <h3>About You</h3>
+                    <p>You love C++. You hate garbage collection. You know how to read a flame graph. You aren't afraid of allocating your own memory.</p>
+                    <ul>
+                        <li>Mastery of C++17 or newer.</li>
+                        <li>Experience with on-device databases (SQLite, Realm) at a low level.</li>
+                        <li>Understanding of OS primitives (mutexes, threads, virtual memory).</li>
+                    </ul>
+                </div>
+                <aside>
+                    <div class="sidebar-card">
+                        <h4 style="margin-bottom: 20px; color: var(--coral);">Apply for this role</h4>
+                        <a href="mailto:careers@nairengineering.com?subject=Systems Application" class="apply-btn">Apply via Email</a>
+                        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5);">Send us a link to your fastest code.</p>
+                    </div>
+                </aside>
+            </div>
+        </div>
+
+        <div id="view-design" class="detail-view">
+            <div class="back-btn" onclick="showBoard()">← Back to Open Roles</div>
+            <div class="detail-header">
+                <h1 class="detail-title">Product Designer</h1>
+                <div class="detail-meta">
+                    <span>Design</span> • <span>Gainesville, FL / Remote</span> • <span style="color: var(--coral-deep);">Equity Only</span>
+                </div>
+            </div>
+            <div class="detail-content">
+                <div class="prose">
+                    <h3>The Aesthetic</h3>
+                    <p>
+                        We do not do "Corporate Memphis." We do not do "Clean SaaS." 
+                        <br><br>
+                        We are building the interface for the future of human biology. We want <strong>Retrofuturism</strong>. Think the interfaces in <em>Alien (1979)</em>, <em>Blade Runner</em>, and <em>Evangelion</em>—but functional for a doctor in 2025.
+                    </p>
+                    <h3>The Role</h3>
+                    <p>
+                        You must be able to draw. You must be able to code your designs (or at least understand how they break). You will design data visualizations that look like they belong in a cockpit.
+                    </p>
+                    <h3>Requirements</h3>
+                    <ul>
+                        <li><strong>Portfolio Required:</strong> If you don't submit a portfolio, we won't read your email.</li>
+                        <li>Strong experience with Figma, Cinema 4D, or Blender.</li>
+                        <li>Ability to design complex information hierarchies without clutter.</li>
+                        <li>A love for glowing text, monospaced fonts, and scanlines.</li>
+                    </ul>
+                </div>
+                <aside>
+                    <div class="sidebar-card">
+                        <h4 style="margin-bottom: 20px; color: var(--coral);">Apply for this role</h4>
+                        <a href="mailto:careers@nairengineering.com?subject=Design Application" class="apply-btn">Apply via Email</a>
+                        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5);">
+                            <strong>Portfolio is mandatory.</strong> Show us your weirdest, most futuristic work.
                         </p>
                     </div>
                 </aside>
@@ -465,17 +605,45 @@
     </div>
 
     <script>
-        // Simple Single-Page Routing Logic
+        // --- ROUTING LOGIC ---
+        const views = ['view-board', 'view-mle', 'view-ios', 'view-systems', 'view-design'];
+
         function showRole(roleId) {
-            document.getElementById('view-board').style.display = 'none';
-            document.getElementById('view-mle').style.display = 'block';
+            // Hide all views
+            views.forEach(id => document.getElementById(id).style.display = 'none');
+            // Show specific role view
+            document.getElementById('view-' + roleId).style.display = 'block';
             window.scrollTo(0, 0);
         }
 
         function showBoard() {
-            document.getElementById('view-mle').style.display = 'none';
+            views.forEach(id => document.getElementById(id).style.display = 'none');
             document.getElementById('view-board').style.display = 'block';
             window.scrollTo(0, 0);
+        }
+
+        // --- FILTERING LOGIC ---
+        function filterRoles(category) {
+            // Update Buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                if (btn.innerText.toLowerCase().includes(category) || (category === 'all' && btn.innerText === 'ALL ROLES')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Filter List
+            const roles = document.querySelectorAll('.role-row');
+            roles.forEach(role => {
+                const roleCat = role.getAttribute('data-category');
+                if (category === 'all' || roleCat === category) {
+                    role.classList.remove('hidden');
+                } else {
+                    role.classList.add('hidden');
+                }
+            });
         }
     </script>
 </body>
